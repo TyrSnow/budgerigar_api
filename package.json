@@ -1,0 +1,44 @@
+{
+  "name": "budgerigar_api",
+  "version": "0.0.1",
+  "scripts": {
+    "init": "cnpm install",
+    "test": "./node_modules/.bin/mocha -r ./node_modules/ts-node/register src/**/*.spec.ts",
+    "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha -- -r ./node_modules/ts-node/register src/**/*.spec.ts"
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-jsonschema": "^1.1.6",
+    "express-jwt": "^5.3.0",
+    "jsonwebtoken": "^8.1.0",
+    "log4js": "^2.3.11",
+    "mongoose": "^4.12.6",
+    "redis": "^2.8.0"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.16.7",
+    "@types/chai": "^4.0.4",
+    "@types/express": "^4.0.39",
+    "@types/express-jwt": "^0.0.38",
+    "@types/jsonwebtoken": "^7.2.3",
+    "@types/log4js": "^2.3.5",
+    "@types/mocha": "^2.2.44",
+    "@types/mongoose": "^4.7.24",
+    "@types/node": "^8.0.47",
+    "@types/redis": "^2.8.1",
+    "@types/supertest": "^2.0.3",
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "istanbul-harmony": "^0.3.16",
+    "mocha": "^4.0.1",
+    "supertest": "^3.0.0",
+    "ts-node": "^3.3.0",
+    "typescript": "^2.6.1"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Tian Yu",
+    "email": "1127114376@qq.com"
+  }
+}
