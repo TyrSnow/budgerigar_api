@@ -1,4 +1,5 @@
 import * as crypto from 'crypto';
+import { UserModel } from '../models/User';
 const SAULT_LENGTH = 64;
 
 function randomHex() {
@@ -22,10 +23,15 @@ function hash_password(name:string, sault:string, pwd:string) {
     return hash.digest('hex');
 }
 
-function valid_password(user: string, sault: string, pwd: string, password: object) {
-    let hashed = hash_password(user, sault, pwd);
-    for (let key in password) {
-        if (password[key] === hashed) {
+function valid_password(user: string, sault: string, pwd: string, password: UserModel.IUserPassword) {
+    let hashUser = hash_password(user, sault, pwd);
+    if (hashUser === password.name) {
+        return true;
+    }
+    // 手机和email会后期进行绑定，这个时候是不知道原始的用户密码是什么的，所以需要把用name字段hash的结果当作密码
+    if (password.phone || password.email) {
+        let secondHash = hash_password(user, sault, password.name);
+        if (secondHash === password.phone || secondHash === password.email) {
             return true;
         }
     }

@@ -1,8 +1,11 @@
 {
   "name": "budgerigar_api",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "init": "cnpm install",
+    "compileJs": "tsc",
+    "startJs": "nodemon build/server.js",
+    "start": "npm-run-all -p compileJs startJs",
     "test": "./node_modules/.bin/mocha -r ./node_modules/ts-node/register src/**/*.spec.ts",
     "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha -- -r ./node_modules/ts-node/register src/**/*.spec.ts"
   },
@@ -32,6 +35,7 @@
     "chai-as-promised": "^7.1.1",
     "istanbul-harmony": "^0.3.16",
     "mocha": "^4.0.1",
+    "npm-run-all": "^4.1.2",
     "supertest": "^3.0.0",
     "ts-node": "^3.3.0",
     "typescript": "^2.6.1"

@@ -8,8 +8,8 @@ class UserCtrl {
      * 用户注册
      */
     static regist(req, res) {
-        let { name, phone, email, password, nickname } = req.body;
-        UserSrv.create(name, phone, email, password, nickname).then(
+        let { name, password } = req.body;
+        UserSrv.create(name, password).then(
             SUCCESS(req, res, '[UserCtrl.regist]')
         ).catch(
             ERROR(req, res, '[UserCtrl.regist]')
@@ -30,7 +30,6 @@ class UserCtrl {
                     name: _user.name,
                     email: _user.email,
                     phone: _user.phone,
-                    nickname: _user.nickname,
                     head: _user.head
                 }, remember ? '30d' : '1s'))
             }

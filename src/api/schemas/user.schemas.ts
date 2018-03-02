@@ -12,16 +12,6 @@ const UserSchemas = {
                     type: 'string',
                     required: true
                 },
-                phone: {
-                    type: 'string',
-                    required: true,
-                    pattern: Regs.phoneStr
-                },
-                email: {
-                    type: 'string',
-                    required: true,
-                    pattern: Regs.emailStr
-                },
                 password: {
                     type: 'string',
                     required: true

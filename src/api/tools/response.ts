@@ -1,6 +1,6 @@
-import * as log4js from 'log4js'
+import * as log4js from 'log4js';
 
-import CODE from '../constants/Code.enum'
+import CODE from '../constants/Code.enum';
 
 let log = log4js.getLogger('default');
 function SUCCESS(req, res, prefix) {

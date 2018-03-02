@@ -12,26 +12,22 @@ let model = new Schema({
     },
     email: {
         type: String,
-        required: true,
-        unique: true,
-        index: true
     },
     phone: {
         type: String,
-        required: true,
-        unique: true,
-        index: true
     },
     sault: {
         type: String,
         required: true
     },
     password: {
+        name: {
+            type: String,
+            required: true,
+        },
         email: String,
-        name: String,
         phone: String
     },
-    nickname: String,
     head: String,
     create_date: {
         type: Date,
