@@ -51,6 +51,17 @@ const UserSchemas = {
                 }
             }
         }
+    },
+    validName: {
+        query: {
+            type: 'object',
+            properties: {
+                name: {
+                    type: 'string',
+                    required: true
+                }
+            }
+        }
     }
 }
 

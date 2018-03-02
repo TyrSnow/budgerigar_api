@@ -7,8 +7,11 @@ import UserSchemas from '../schemas/user.schemas'
 
 let userRoutes = Router();
 
+userRoutes.get('/Names', validate(UserSchemas.validName), UserCtrl.valid_name);
+
 userRoutes.post('/', validate(UserSchemas.regist), UserCtrl.regist);
 
 userRoutes.put('/Password', requestUser, validate(UserSchemas.changePassword), UserCtrl.change_password);
+
 
 export default userRoutes

@@ -17,6 +17,17 @@ class UserCtrl {
     }
 
     /**
+     * 检查用户名是否存在
+     */
+    static valid_name(req, res) {
+        let { name } = req.query;
+        UserSrv.valid_name(name).then(
+            SUCCESS(req, res, '[UserCtrl.valid_name]')
+        ).catch(
+            ERROR(req, res, '[UserCtrl.valid_name]')
+        );
+    }
+    /**
      * 用户登陆
      */
     static login(req, res) {

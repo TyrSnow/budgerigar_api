@@ -3,12 +3,21 @@ import * as log4js from 'log4js';
 import CODE from '../constants/Code.enum';
 
 let log = log4js.getLogger('default');
+
+function LIST(req, res, prefix) {
+    return (data) => {
+        res.json(Object.assign({
+            success: true,
+        }, data));
+        log.info(prefix, 'Success');
+    }
+}
 function SUCCESS(req, res, prefix) {
     return (data) => {
         res.json({
             success: true,
-            data: data
-        })
+            data,
+        });
         log.info(prefix, 'Success');
     }
 }
@@ -27,4 +36,4 @@ function ERROR(req, res, prefix) {
     }
 }
 
-export { SUCCESS, ERROR }
+export { SUCCESS, LIST, ERROR }
