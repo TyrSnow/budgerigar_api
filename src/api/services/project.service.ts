@@ -14,7 +14,7 @@ class ProjectService {
   static create(
     userId: string,
     name: string
-  ): Promise<string> {
+  ): Promise<ProjectModel.IProjectListInfo> {
     log.debug('[ProjectService.create]Input arguments: ', arguments);
     let doc = new Project({
       name: name,
@@ -23,7 +23,12 @@ class ProjectService {
       members: [userId],
     });
     return doc.save().then(
-      _doc => Promise.resolve(_doc._id),
+      _doc => Promise.resolve({
+        _id: _doc._id,
+        name: _doc.name,
+        update_date: _doc.update_date,
+        creator: _doc.creator,
+      }),
       (err) => {
         if (err.code === 11000) {
           if (err.errmsg.indexOf('name') !== -1) {
@@ -103,11 +108,13 @@ class ProjectService {
    * @param projId 
    */
   static delete(
-    projId: string
+    projId: string,
+    userId: string,
   ): Promise<ProjectModel.IProject> {
     log.debug('[ProjectService.delete]Input arguments: ', arguments);
     return Project.findOneAndRemove({
-      _id: projId
+      _id: projId,
+      admins: userId,
     }).then(
       (doc) => {
         if (doc) {

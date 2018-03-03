@@ -21,6 +21,13 @@ declare namespace ProjectModel {
     texts: Array<IText>
   }
 
+  interface IProjectListInfo {
+    _id: string
+    name: string
+    update_date: Date
+    creator: string
+  }
+
   interface IProject extends Document {
     name: string
     creator: string

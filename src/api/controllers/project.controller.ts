@@ -61,4 +61,15 @@ export default class ProjectCtrl {
       ERROR(req, res, '[DocCtrl.query_docs]')
     )
   }
+
+  static delete_one(req, res) {
+    let { _id } = req.user;
+    let { projId } = req.params;
+
+    ProjectService.delete(projId, _id).then(
+      SUCCESS(req, res, '[DocCtrl.get_one_doc]')
+    ).catch(
+      ERROR(req, res, '[DocCtrl.get_one_doc]')
+    );
+  }
 }

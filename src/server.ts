@@ -28,7 +28,7 @@ let error = log4js.getLogger('error')
 app.use(function (err, req, res, next) {
     if (err.status === 401) {
         return res.status(401).json({
-            note: err.message
+            message: err.message
         })
     }
     if (err.name === 'JsonSchemaValidation') {
