@@ -27,6 +27,7 @@ class UserCtrl {
             ERROR(req, res, '[UserCtrl.valid_name]')
         );
     }
+
     /**
      * 用户登陆
      */
@@ -49,6 +50,13 @@ class UserCtrl {
         ).catch(
             ERROR(req, res, '[UserCtrl.login]')
         )
+    }
+    /**
+     * 解析当前登陆用户
+     */
+    static solveAuth(req, res) {
+        let { user } = req;
+        SUCCESS(req, res, '[UserCtrl.solveAuth]')(user);
     }
 
     /**

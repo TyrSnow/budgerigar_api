@@ -1,7 +1,7 @@
-function C(code: number, note: string, status?: number, uri?: string) {
+function C(code: number, message: string, status?: number, uri?: string) {
     return {
         code,
-        note,
+        message,
         uri
     }
 }
