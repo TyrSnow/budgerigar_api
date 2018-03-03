@@ -10,6 +10,13 @@ class UserCtrl {
     static regist(req, res) {
         let { name, password } = req.body;
         UserSrv.create(name, password).then(
+            _user => {
+                return Promise.resolve(TokenSrv.sign({
+                    _id: _user._id,
+                    name: _user.name,
+                }, '1d'))
+            }
+        ).then(
             SUCCESS(req, res, '[UserCtrl.regist]')
         ).catch(
             ERROR(req, res, '[UserCtrl.regist]')
@@ -42,8 +49,9 @@ class UserCtrl {
                     name: _user.name,
                     email: _user.email,
                     phone: _user.phone,
-                    head: _user.head
-                }, remember ? '30d' : '1s'))
+                    head: _user.head,
+                    remember: remember,
+                }, remember ? '30d' : '1d'))
             }
         ).then(
             SUCCESS(req, res, '[UserCtrl.login]')
@@ -53,10 +61,18 @@ class UserCtrl {
     }
     /**
      * 解析当前登陆用户
+     * 自动续期
      */
     static solveAuth(req, res) {
         let { user } = req;
-        SUCCESS(req, res, '[UserCtrl.solveAuth]')(user);
+        let { iat, exp, ...other } = user;
+        let newToken = TokenSrv.sign(
+            other,
+            other.remember ? '30d' : '1d'
+        );
+        return Promise.resolve(newToken).then(
+            SUCCESS(req, res, '[UserCtrl.solveAuth]')
+        );
     }
 
     /**

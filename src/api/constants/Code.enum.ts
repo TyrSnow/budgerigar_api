@@ -33,8 +33,11 @@ const CODE = {
     ILLEGAL_PASSWORD: C(23001, '非法的密码格式'),
     ILLEGAL_USERNAME: C(23002, '非法的用户名'),
 
-    // 文档
-    DOC_NOT_EXIST: C(30000, '文档不存在'),
+    // 项目
+    PROJECT_NOT_EXIST: C(30000, '文档不存在'),
+    PROEJCT_NAME_ALREADY_EXIST: C(30001, '项目名已经被使用'),
+    NO_AUTH_TO_ACCESS_PROJECT: C(30002, '无权访问这个项目'),
+    PROJECT_ALREADY_CHANGE: C(30003, '项目资料发生了改变'),
 }
 
 export default CODE

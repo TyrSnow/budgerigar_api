@@ -11,8 +11,9 @@ let model = new Schema({
         index: true
     },
     creator: {
-      type: String,
-      required: true
+      type: mongoose.SchemaTypes.ObjectId,
+      required: true,
+      rel: 'User',
     },
     admins: [{
       type: mongoose.SchemaTypes.ObjectId,

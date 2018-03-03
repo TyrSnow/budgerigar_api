@@ -1,0 +1,256 @@
+{
+	"variables": [],
+	"info": {
+		"name": "budegrigar",
+		"_postman_id": "08449cec-ef0c-c017-05a3-a594b8ddffa4",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"description": "",
+			"item": [
+				{
+					"name": "注册",
+					"request": {
+						"url": "{{host}}:{{port}}/api/Users",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"tianyu1\",\n\t\"password\": \"123456\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "检查用户名是否存在",
+					"request": {
+						"url": {
+							"raw": "{{host}}:{{port}}/api/Users/Names?name=tianyu",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"Users",
+								"Names"
+							],
+							"query": [
+								{
+									"key": "name",
+									"value": "tianyu",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"tianyu\",\n\t\"password\": \"123456\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "修改密码",
+					"request": {
+						"url": "{{host}}:{{port}}/api/Users/Password",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"oldPwd\": \"123456\",\n\t\"newPwd\": \"456123\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sessions",
+			"description": "",
+			"item": [
+				{
+					"name": "登陆",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.setGlobalVariable(\"token\", JSON.parse(responseBody).data.token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{host}}:{{port}}/api/Sessions",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"user\": \"tianyu\",\n\t\"password\": \"456123\",\n\t\"remember\": true\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "获取当前用户资料",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"exec": [
+									"postman.setGlobalVariable(\"token\", JSON.parse(responseBody).data.token);"
+								]
+							}
+						}
+					],
+					"request": {
+						"url": "{{host}}:{{port}}/api/Sessions",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"user\": \"tianyu\",\n\t\"password\": \"456123\",\n\t\"remember\": true\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Project",
+			"description": "",
+			"item": [
+				{
+					"name": "获得项目列表",
+					"request": {
+						"url": {
+							"raw": "{{host}}:{{port}}/api/Projects?i=1&s=10",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"Projects"
+							],
+							"query": [
+								{
+									"key": "i",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "s",
+									"value": "10",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"user\": \"tianyu\",\n\t\"password\": \"456123\",\n\t\"remember\": true\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "创建项目",
+					"request": {
+						"url": "{{host}}:{{port}}/api/Projects",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"测试项目3\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
