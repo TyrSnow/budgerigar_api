@@ -1,4 +1,5 @@
 import { Document } from 'mongoose'
+import AUTH_TYPE from '../constants/AuthType.enum';
 
 declare namespace UserModel {
     interface IUserPassword {
@@ -14,6 +15,7 @@ declare namespace UserModel {
         sault: string
         password: IUserPassword
         head?: string
+        auth?: AUTH_TYPE
         create_date: string
         block?: boolean
         block_date?: Date
@@ -26,5 +28,6 @@ declare namespace UserModel {
         email?: string
         phone?: string
         head?: string
+        auth?: AUTH_TYPE
     }
 }

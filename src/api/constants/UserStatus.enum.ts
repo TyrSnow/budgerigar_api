@@ -6,7 +6,7 @@ import { UserModel } from "../models/User";
  * DELETE是用户自己删除了自己的账户
  */
 export enum UserStatus {
-    NORMAL,
+    NORMAL = 0,
     BLOCK,
     DELETE,
     INITIALIZE

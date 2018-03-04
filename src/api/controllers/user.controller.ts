@@ -14,6 +14,10 @@ class UserCtrl {
                 return Promise.resolve(TokenSrv.sign({
                     _id: _user._id,
                     name: _user.name,
+                    email: _user.email,
+                    phone: _user.phone,
+                    head: _user.head,
+                    auth: _user.auth,
                 }, '1d'))
             }
         ).then(
@@ -50,6 +54,7 @@ class UserCtrl {
                     email: _user.email,
                     phone: _user.phone,
                     head: _user.head,
+                    auth: _user.auth,
                     remember: remember,
                 }, remember ? '30d' : '1d'))
             }

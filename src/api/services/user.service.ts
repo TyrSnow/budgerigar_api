@@ -35,6 +35,7 @@ class UserSrv {
                 return Promise.resolve({
                     _id: _user._id,
                     name: _user.name,
+                    auth: _user.auth,
                 })
             },
             (err) => {

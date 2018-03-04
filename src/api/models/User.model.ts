@@ -1,5 +1,6 @@
 import * as mongoose from 'mongoose'
 import { UserModel } from './User';
+import AUTH_TYPE from '../constants/AuthType.enum';
 
 const Schema = mongoose.Schema;
 
@@ -15,6 +16,11 @@ let model = new Schema({
     },
     phone: {
         type: String,
+    },
+    auth: {
+        type: Number,
+        enum: AUTH_TYPE,
+        default: AUTH_TYPE.USER
     },
     sault: {
         type: String,
