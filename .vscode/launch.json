@@ -1,0 +1,33 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Launch",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceFolder}/build/server.js",
+      "stopOnEntry": false,
+      "args": [],
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": null,
+      "runtimeArgs": [
+        "--nolazy",
+        "--es_staging",
+      ],
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "console": "internalConsole",
+      "sourceMaps": true,
+      "outFiles": ["./build/**/*.js"]
+    },
+    {
+      "name": "Attach",
+      "type": "node",
+      "request": "attach",
+      "port": 5858,
+      "sourceMaps": true,
+      "outFiles": ["./build/**/*.js"]
+    }
+  ]
+}
