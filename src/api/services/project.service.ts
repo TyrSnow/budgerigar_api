@@ -125,6 +125,48 @@ class ProjectService {
       }
     );
   }
+
+  /**
+   * 判断一个用户是否对一个项目有访问权限
+   * @param projId 
+   * @param userId 
+   */
+  static validMember(
+    projId: string,
+    userId: string,
+  ): Promise<void> {
+    log.debug('[ProjectService.validMember]Input arguments: ', arguments);
+    return Project.count({
+      _id: projId,
+      members: userId,
+    }).then(count => {
+      if (count === 0) {
+        return Promise.reject(CODE.NO_AUTH_TO_ACCESS_PROJECT);
+      }
+      return Promise.resolve();
+    });
+  }
+
+  /**
+   * 判断用户是不是项目管理员
+   * @param projId 
+   * @param userId 
+   */
+  static validAdmin(
+    projId: string,
+    userId: string,
+  ): Promise<void> {
+    log.debug('[ProjectService.validAdmin]Input arguments: ', arguments);
+    return Project.count({
+      _id: projId,
+      admins: userId,
+    }).then(count => {
+      if (count === 0) {
+        return Promise.reject(CODE.NO_AUTH_TO_ACCESS_PROJECT);
+      }
+      return Promise.resolve();
+    });
+  }
 }
 
 export default ProjectService

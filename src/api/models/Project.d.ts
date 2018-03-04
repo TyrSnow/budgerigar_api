@@ -14,11 +14,11 @@ declare namespace ProjectModel {
     keywords: Array<string>
   }
 
-  interface IPackage extends Document {
+  interface IPackage {
     name: string
-    desc: string
+    desc?: string
     creator: string
-    texts: Array<IText>
+    texts?: Array<IText>
   }
 
   interface IProjectListInfo {
@@ -33,7 +33,7 @@ declare namespace ProjectModel {
     creator: string
     admins: Array<string>   // 项目的管理员
     members: Array<string>  // 项目对应的成员
-    packages: Array<string> // 项目对应的语言包
+    packages: Array<IPackage> // 项目对应的语言包
     keywords: Array<string> // 项目的关键词
     create_date: Date
     update_date: Date

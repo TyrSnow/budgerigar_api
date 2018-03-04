@@ -1,6 +1,6 @@
-import ProjectService from '../services/project.service'
+import ProjectService from '../services/project.service';
 
-import { SUCCESS, LIST, ERROR } from '../tools/response'
+import { SUCCESS, LIST, ERROR } from '../tools/response';
 
 export default class ProjectCtrl {
   static create(req, res) {

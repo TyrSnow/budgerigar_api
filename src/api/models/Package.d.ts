@@ -13,7 +13,8 @@ declare namespace PackageModel {
   }
   interface IPackage extends Document {
     name: string
-    desc: string
+    desc?: string
+    project_id: string
     creator: string
     texts: Array<IText>
   }

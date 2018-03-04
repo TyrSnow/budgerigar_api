@@ -18,12 +18,25 @@ let model = new Schema({
     admins: [{
       type: mongoose.SchemaTypes.ObjectId,
       rel: 'User',
+      index: true,
     }],
     members: [{
       type: mongoose.SchemaTypes.ObjectId,
       rel: 'User',
+      index: true,
     }],
-    
+    packages: {
+        type: Object,
+        fields: {
+            name: String,
+            texts: [{
+                text: String,
+                key: String,
+                trans: Object,
+                keywords: [String],
+            }],
+        },
+    },
     create_date: {
         type: Date,
         default: Date.now
@@ -32,7 +45,7 @@ let model = new Schema({
         type: Date,
         default: Date.now
     }
-})
+});
 
 const Project = mongoose.model<ProjectModel.IProject>('Project', model);
 export default Project;

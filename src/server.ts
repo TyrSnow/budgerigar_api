@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({extended: true}))
 app.use('/api', routes)
 
 // 后置错误处理
-let error = log4js.getLogger('error')
+let error = log4js.getLogger('error');
 app.use(function (err, req, res, next) {
     if (err.status === 401) {
         return res.status(401).json({
