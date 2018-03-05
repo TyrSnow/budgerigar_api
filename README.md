@@ -1,4 +1,6 @@
 # budgerigar_api
+[![Build Status](https://travis-ci.org/TyrSnow/budgerigar_api.svg?branch=develop)](https://travis-ci.org/TyrSnow/budgerigar_api)
+
 用于管理语言包的系统服务器
 ## 1. 名词解释
 1. 项目 用于分隔的最小单位，一般情况下，我们认为前端、后台、app应该共享同一个项目
