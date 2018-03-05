@@ -1,0 +1,74 @@
+Arguments: 
+  C:\Program Files\nodejs\node.exe C:\Users\TianYu\AppData\Roaming\npm\node_modules\yarn\bin\yarn.js install
+
+PATH: 
+  C:\Program Files\Git\mingw64\bin;C:\Program Files\Git\usr\bin;C:\Users\TianYu\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v8.0\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v8.0\libnvvp;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.1\bin;C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v9.1\libnvvp;C:\Program Files\Docker\Docker\Resources\bin;C:\Program Files (x86)\Common Files\NetSarang;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0;C:\Program Files\nodejs;C:\Program Files\Git\cmd;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files (x86)\Common Files\Thunder Network\KanKan\Codecs;C:\Users\TianYu\Anaconda3;C:\Users\TianYu\Anaconda3\Scripts;C:\Users\TianYu\Anaconda3\Library\bin;C:\Users\TianYu\AppData\Roaming\npm;C:\Program Files\Microsoft VS Code\bin;C:\Users\TianYu\AppData\Local\Microsoft\WindowsApps
+
+Yarn version: 
+  1.3.2
+
+Node version: 
+  8.9.3
+
+Platform: 
+  win32 x64
+
+npm manifest: 
+  {
+    "name": "budgerigar_api",
+    "version": "0.1.0",
+    "scripts": {
+      "init": "cnpm install",
+      "compileJs": "tsc --watch",
+      "startJs": "nodemon build/server.js",
+      "start": "npm-run-all -p compileJs startJs",
+      "build": "tsc",
+      "test": "./node_modules/.bin/mocha -r ./node_modules/ts-node/register src/**/*.spec.ts",
+      "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha -- -r ./node_modules/ts-node/register src/**/*.spec.ts"
+    },
+    "dependencies": {
+      "body-parser": "^1.18.2",
+      "express": "^4.16.2",
+      "express-jsonschema": "^1.1.6",
+      "express-jwt": "^5.3.0",
+      "jsonwebtoken": "^8.1.0",
+      "log4js": "^2.3.11",
+      "mongoose": "^4.12.6",
+      "redis": "^2.8.0"
+    },
+    "devDependencies": {
+      "@types/body-parser": "^1.16.7",
+      "@types/chai": "^4.0.4",
+      "@types/express": "^4.0.39",
+      "@types/express-jwt": "^0.0.38",
+      "@types/jsonwebtoken": "^7.2.3",
+      "@types/log4js": "^2.3.5",
+      "@types/mocha": "^2.2.44",
+      "@types/mongoose": "^4.7.24",
+      "@types/node": "^8.0.47",
+      "@types/redis": "^2.8.1",
+      "@types/supertest": "^2.0.3",
+      "chai": "^4.1.2",
+      "chai-as-promised": "^7.1.1",
+      "istanbul-harmony": "^0.3.16",
+      "mocha": "^4.0.1",
+      "npm-run-all": "^4.1.2",
+      "supertest": "^3.0.0",
+      "ts-node": "^3.3.0",
+      "typescript": "^2.6.1"
+    },
+    "license": "MIT",
+    "author": {
+      "name": "Tian Yu",
+      "email": "1127114376@qq.com"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
+
+Trace: 
+  Error: ENOENT: no such file or directory, copyfile 'C:\Users\TianYu\AppData\Local\Yarn\cache\v1\npm-has-flag-3.0.0-b5d454dc2199ae225699f3467e5a07f3b955bafd\index.js' -> 'D:\MyProjs\budgerigar_api\node_modules\chalk\node_modules\has-flag\index.js'

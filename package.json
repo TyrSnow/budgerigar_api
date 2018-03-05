@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "scripts": {
     "init": "cnpm install",
-    "compileJs": "tsc",
+    "compileJs": "tsc --watch",
     "startJs": "nodemon build/server.js",
     "start": "npm-run-all -p compileJs startJs",
+    "build": "tsc",
     "test": "./node_modules/.bin/mocha -r ./node_modules/ts-node/register src/**/*.spec.ts",
     "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha -- -r ./node_modules/ts-node/register src/**/*.spec.ts"
   },
