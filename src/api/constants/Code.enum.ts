@@ -11,6 +11,7 @@ const CODE = {
     SUCCESS: C(10200, '操作完成'),
     ERROR: C(10500, '服务器异常'),
     ACCESS_DENY: C(10400, '用户操作被拒绝', 400),
+    DOC_NOT_EXIST: C(10401, '资源不存在'),
 
     // 用户权限
     NOT_AUTHORIZE: C(20000, '需要登陆才能进行此项操作'),

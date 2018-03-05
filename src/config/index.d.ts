@@ -9,7 +9,7 @@ interface ILogConfig {
     replaceConsole: boolean
 }
 interface IConfig {
-    PORT: number
+    PORT: number | string
     secretKey: string
     db: IDBConfig
     log: ILogConfig
