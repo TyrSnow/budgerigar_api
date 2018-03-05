@@ -1,5 +1,5 @@
 const config = {
-    PORT: process.env.BUDGERIGAR_PORT || 8081,
+    PORT: process.env.BUDGERIGAR_PORT || '8081',
     secretKey: process.env.BUDGERIGAR_SECRET_KEY,
     db: {
         uri: `mongodb://127.0.0.1:27017/seed${process.env.BUDGERIGAR_DB_COLLECTION}`,
