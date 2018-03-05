@@ -7,17 +7,14 @@ addons:
   apt:
     packages:
       - sshpass
-      - xvfb
 install:
-  - export DISPLAY=':99.0'
-  - Xvfb :99 -screen 0 1366x768x24 > /dev/null 2>&1 &
   - npm i npminstall && npminstall
 script:
   - npm run build
 after_script:
   - tar -zcvf budgerigar_api.tar.gz --exclude=*.map --exclude=node_modules --exclude=logs *
   - sshpass -p $DEPLOY_SEVER_PASSWORD scp -o StrictHostKeyChecking=no budgerigar_api.tar.gz $DEPLOY_SERVER_USER@$DEPLOY_SEVER_IP:~
-  - sshpass -p $DEPLOY_SEVER_PASSWORD ssh $DEPLOY_SERVER_USER@$DEPLOY_SEVER_IP -o StrictHostKeyChecking=no "tar -zxvf budgerigar_api.tar.gz -C budgerigar_api/ && cd budgerigar_api && export BUDGERIGAR_PORT=$BUDGERIGAR_PORT BUDGERIGAR_SECRET_KEY=$BUDGERIGAR_SECRET_KEY BUDGERIGAR_DB_COLLECTION=$BUDGERIGAR_DB_COLLECTION BUDGERIGAR_DB_USER=$BUDGERIGAR_DB_USER BUDGERIGAR_DB_PASSWORD=$BUDGERIGAR_DB_PASSWORD && bash ./deploy.sh"
+  - sshpass -p $DEPLOY_SEVER_PASSWORD ssh $DEPLOY_SERVER_USER@$DEPLOY_SEVER_IP -o StrictHostKeyChecking=no "tar -zxvf budgerigar_api.tar.gz -C budgerigar_api/ && cd budgerigar_api && export BUDGERIGAR_PORT=$BUDGERIGAR_PORT && export BUDGERIGAR_SECRET_KEY=$BUDGERIGAR_SECRET_KEY && export BUDGERIGAR_DB_COLLECTION=$BUDGERIGAR_DB_COLLECTION && export BUDGERIGAR_DB_USER=$BUDGERIGAR_DB_USER && export BUDGERIGAR_DB_PASSWORD=$BUDGERIGAR_DB_PASSWORD && bash ./deploy.sh"
 # branches:
 #   only:
 #   - master
