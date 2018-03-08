@@ -4,7 +4,7 @@ declare namespace ProjectModel {
   
   interface ITranslate {
     lang: string
-    transText: string
+    text: string
   }
 
   interface IText {
@@ -28,13 +28,18 @@ declare namespace ProjectModel {
     creator: string
   }
 
+  interface IKeyword {
+    text: string,
+    translations: Array<ITranslate>
+  }
+
   interface IProject extends Document {
     name: string
     creator: string
     admins: Array<string>   // 项目的管理员
     members: Array<string>  // 项目对应的成员
     packages: Array<IPackage> // 项目对应的语言包
-    keywords: Array<string> // 项目的关键词
+    keywords: Array<IKeyword> // 项目的关键词
     create_date: Date
     update_date: Date
   }

@@ -39,6 +39,10 @@ const CODE = {
     PROEJCT_NAME_ALREADY_EXIST: C(30001, '项目名已经被使用'),
     NO_AUTH_TO_ACCESS_PROJECT: C(30002, '无权访问这个项目'),
     PROJECT_ALREADY_CHANGE: C(30003, '项目资料发生了改变'),
+    PROJECT_LIMIT: C(30100, '无法再创建更多的项目'),
+    PROJECT_KEYWORD_LIMIT: C(30101, '项目关键词数目达到上限'),
+    PROJECT_PACKAGE_LIMIT: C(30102, '项目语言包数目达到上限')
+
 }
 
 export default CODE

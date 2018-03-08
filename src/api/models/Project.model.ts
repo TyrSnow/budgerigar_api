@@ -25,18 +25,13 @@ let model = new Schema({
       rel: 'User',
       index: true,
     }],
-    packages: {
-        type: Object,
-        fields: {
-            name: String,
-            texts: [{
-                text: String,
-                key: String,
-                trans: Object,
-                keywords: [String],
-            }],
-        },
-    },
+    keywords: [{
+        text: String,
+        translations: [{
+            lang: String,
+            text: String,
+        }],
+    }],
     create_date: {
         type: Date,
         default: Date.now

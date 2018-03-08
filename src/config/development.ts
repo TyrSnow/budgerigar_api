@@ -6,6 +6,10 @@ const config = {
         user: '',
         password: ''
     },
+    upload: {
+        temp: 'uploads',
+        static: 'D:/nginx-1.12.2/html/medias'
+    },
     log: {
         appenders: {
             out: {

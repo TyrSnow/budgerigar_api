@@ -3,6 +3,27 @@ import ProjectService from '../services/project.service';
 import { SUCCESS, LIST, ERROR } from '../tools/response';
 
 export default class ProjectCtrl {
+  /** 用于子路由的中间件 */
+  static validMember(req, res, next) {
+    let { _id } = req.user;
+    let { projId} = req.params;
+    ProjectService.validMember(projId, _id).then(
+      () => next(),
+    ).catch(
+      ERROR(req, res, '[ProjectCtrl.validMember]')
+    )
+  }
+
+  static validAdmin(req, res, next) {
+    let { _id } = req.user;
+    let { projId} = req.params;
+    ProjectService.validAdmin(projId, _id).then(
+      () => next(),
+    ).catch(
+      ERROR(req, res, '[ProjectCtrl.validMember]')
+    )
+  }
+
   static create(req, res) {
     let { _id } = req.user;
     let { name } = req.body;
