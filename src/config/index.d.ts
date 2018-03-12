@@ -12,6 +12,7 @@ interface ILogConfig {
 interface IUploadConfig {
     temp: string
     static: string
+    prefix: string
 }
 interface IConfig {
     PORT: number | string

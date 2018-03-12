@@ -1,7 +1,7 @@
 /**
  * ProjectCtrl对应的schemas
  */
-const DocSchemas = {
+const schemas = {
   create: {
     body: {
       type: 'object',
@@ -15,14 +15,15 @@ const DocSchemas = {
   },
   getOneDoc: {
   },
-  queryDocs: {
+  query: {
     query: {
       type: 'object',
       properties: {
-        i: { type: 'string'},
-        s: { type: 'string'},
+        current: { type: 'string'},
+        size: { type: 'string'},
       }
     }
   }
-}
-export default DocSchemas
+};
+
+export default schemas;

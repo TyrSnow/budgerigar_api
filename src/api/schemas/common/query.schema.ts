@@ -1,10 +1,10 @@
 const querySchema = {
-    type: 'object',
-    properties: {
-        k: 'string',
-        s: 'number',
-        i: 'number'
-    }
-}
+  type: 'object',
+  properties: {
+    key: 'string',
+    size: 'number',
+    current: 'number',
+  },
+};
 
 export { querySchema }

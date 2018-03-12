@@ -6,6 +6,11 @@ const config = {
         user: process.env.BUDGERIGAR_DB_USER,
         password: process.env.BUDGERIGAR_DB_PASSWORD
     },
+    upload: {
+        temp: 'uploads',
+        static: 'D:/nginx-1.12.2/html/',
+        prefix: 'medias'
+    },
     log: {
         appenders: {
             out: {

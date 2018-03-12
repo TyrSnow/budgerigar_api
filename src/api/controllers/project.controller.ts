@@ -1,29 +1,17 @@
-import ProjectService from '../services/project.service';
+import { Router } from 'express';
 
+import router from '../tools/router';
+import validator from '../tools/validator';
 import { SUCCESS, LIST, ERROR } from '../tools/response';
 
-export default class ProjectCtrl {
-  /** 用于子路由的中间件 */
-  static validMember(req, res, next) {
-    let { _id } = req.user;
-    let { projId} = req.params;
-    ProjectService.validMember(projId, _id).then(
-      () => next(),
-    ).catch(
-      ERROR(req, res, '[ProjectCtrl.validMember]')
-    )
-  }
+import ProjectService from '../services/project.service';
+import schemas from '../schemas/project.schemas';
 
-  static validAdmin(req, res, next) {
-    let { _id } = req.user;
-    let { projId} = req.params;
-    ProjectService.validAdmin(projId, _id).then(
-      () => next(),
-    ).catch(
-      ERROR(req, res, '[ProjectCtrl.validMember]')
-    )
-  }
+class ProjectCtrl {
+  static router = Router();
 
+  @router('/', 'post')
+  @validator(schemas.create)
   static create(req, res) {
     let { _id } = req.user;
     let { name } = req.body;
@@ -35,6 +23,7 @@ export default class ProjectCtrl {
     )
   }
 
+  @router('/:projId', 'get')
   static get_one(req, res) {
     let { _id } = req.user;
     let { projId } = req.params;
@@ -46,30 +35,32 @@ export default class ProjectCtrl {
     )
   }
 
+  @router('/', 'get')
+  @validator(schemas.query)
   static query(req, res) {
     let { _id } = req.user;
-    let { i = 1, s = 10 } = req.query;
+    let { current = 1, size = 10 } = req.query;
 
     ProjectService.count(_id).then(
       (count) => {
-        if (count < (i - 1) * s) {
+        if (count < (current - 1) * size) {
           return Promise.resolve({
             list: [],
             page: {
-              i: i,
-              s: s,
-              c: count
+              current: current,
+              size: size,
+              total: count
             }
           })
         } else {
-          return ProjectService.list(_id, i, s).then(
+          return ProjectService.list(_id, current, size).then(
             (list) => {
               return Promise.resolve({
                 list: list,
                 page: {
-                  i: i,
-                  s: s,
-                  c: count
+                  current: current,
+                  size: size,
+                  total: count
                 }
               })
             }
@@ -83,6 +74,7 @@ export default class ProjectCtrl {
     )
   }
 
+  @router('/:projId', 'delete')
   static delete_one(req, res) {
     let { _id } = req.user;
     let { projId } = req.params;
@@ -94,3 +86,5 @@ export default class ProjectCtrl {
     );
   }
 }
+
+export default ProjectCtrl;

@@ -8,7 +8,8 @@ const config = {
     },
     upload: {
         temp: 'uploads',
-        static: 'D:/nginx-1.12.2/html/medias'
+        static: 'D:/nginx-1.12.2/html/',
+        prefix: 'medias'
     },
     log: {
         appenders: {

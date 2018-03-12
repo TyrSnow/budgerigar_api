@@ -31,17 +31,6 @@ app.use(function (err, req, res, next) {
             message: err.message
         })
     }
-    if (err.name === 'JsonSchemaValidation') {
-        error.debug('[Error]Catched JsonSchemaValidate Error: ', JSON.stringify(err));
-        error.debug('[Request]Error captured in url: ', req.originalUrl);
-        error.debug('[Request]Error captured with params: ', req.params);
-        error.debug('[Request]Error captured with query: ', req.query);
-        error.debug('[Request]Error captured with body: ', req.body);
-        return res.status(400).json({
-            note: 'Invalid params.'
-        });
-    }
-
     error.error(JSON.stringify(err));
     res.status(500).send({
         note: 'Unrecognized Error'

@@ -1,40 +1,32 @@
-import { Document } from 'mongoose'
+import { Document } from 'mongoose';
 
 declare namespace ProjectModel {
-  
-  interface ITranslate {
+
+  interface ITranslate extends Document {
     lang: string
     text: string
   }
 
-  interface IText {
+  interface IText extends Document {
     text: string
-    key: string
-    trans: Array<ITranslate>
-    keywords: Array<string>
+    translates: Array<ITranslate>
   }
 
-  interface IPackage {
+  interface IKeyword extends Document {
+    text: string
+    desc?: string
+    translates: Array<ITranslate>
+  }
+
+  interface IPackage extends Document {
     name: string
     desc?: string
-    creator: string
-    texts?: Array<IText>
-  }
-
-  interface IProjectListInfo {
-    _id: string
-    name: string
-    update_date: Date
-    creator: string
-  }
-
-  interface IKeyword {
-    text: string,
-    translations: Array<ITranslate>
+    texts: Array<IText>
   }
 
   interface IProject extends Document {
     name: string
+    desc?: string
     creator: string
     admins: Array<string>   // 项目的管理员
     members: Array<string>  // 项目对应的成员

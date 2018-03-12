@@ -1,12 +1,21 @@
-import UserSrv from '../services/user.service'
-import TokenSrv from '../services/token.service'
+import { Router } from 'express';
 
-import { SUCCESS, ERROR } from '../tools/response'
+import router from '../tools/router';
+import validator from '../tools/validator';
+import { auth, AUTH_TYPE } from '../tools/auth';
+import { SUCCESS, ERROR } from '../tools/response';
+
+import UserSrv from '../services/user.service';
+import TokenSrv from '../services/token.service';
+import schemas from '../schemas/user.schemas';
 
 class UserCtrl {
+    static router = Router();
     /**
      * 用户注册
      */
+    @router('/', 'post')
+    @validator(schemas.regist)
     static regist(req, res) {
         let { name, password } = req.body;
         UserSrv.create(name, password).then(
@@ -30,6 +39,8 @@ class UserCtrl {
     /**
      * 检查用户名是否存在
      */
+    @router('/names')
+    @validator(schemas.validName)
     static valid_name(req, res) {
         let { name } = req.query;
         UserSrv.valid_name(name).then(
@@ -40,49 +51,11 @@ class UserCtrl {
     }
 
     /**
-     * 用户登陆
-     */
-    static login(req, res) {
-        let { user, password, remember } = req.body;
-        UserSrv.find_user(user).then(
-            _user => UserSrv.valid_password(_user, user, password)
-        ).then(
-            (_user) => {
-                return Promise.resolve(TokenSrv.sign({
-                    _id: _user._id,
-                    name: _user.name,
-                    email: _user.email,
-                    phone: _user.phone,
-                    head: _user.head,
-                    auth: _user.auth,
-                    remember: remember,
-                }, remember ? '30d' : '1d'))
-            }
-        ).then(
-            SUCCESS(req, res, '[UserCtrl.login]')
-        ).catch(
-            ERROR(req, res, '[UserCtrl.login]')
-        )
-    }
-    /**
-     * 解析当前登陆用户
-     * 自动续期
-     */
-    static solveAuth(req, res) {
-        let { user } = req;
-        let { iat, exp, ...other } = user;
-        let newToken = TokenSrv.sign(
-            other,
-            other.remember ? '30d' : '1d'
-        );
-        return Promise.resolve(newToken).then(
-            SUCCESS(req, res, '[UserCtrl.solveAuth]')
-        );
-    }
-
-    /**
      * 更改密码
      */
+    @router('/password', 'put')
+    @auth(AUTH_TYPE.USER)
+    @validator(schemas.changePassword)
     static change_password(req, res) {
         let { _id, name } = req.user;
         let { oldPwd, newPwd } = req.body;
@@ -100,4 +73,4 @@ class UserCtrl {
     }
 }
 
-export default UserCtrl
+export default UserCtrl;

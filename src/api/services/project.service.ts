@@ -1,6 +1,6 @@
 import * as log4js from 'log4js';
-import { ProjectModel } from '../models/Project';
-import Project from '../models/Project.model';
+import { ProjectModel } from '../models/Project/index.d';
+import Project from '../models/Project/index';
 import CODE from '../constants/Code.enum';
 
 let log = log4js.getLogger('default');
@@ -14,7 +14,7 @@ class ProjectService {
   static create(
     userId: string,
     name: string
-  ): Promise<ProjectModel.IProjectListInfo> {
+  ): Promise<ProjectModel.IProject> {
     log.debug('[ProjectService.create]Input arguments: ', arguments);
     let doc = new Project({
       name: name,
@@ -23,12 +23,7 @@ class ProjectService {
       members: [userId],
     });
     return doc.save().then(
-      _doc => Promise.resolve({
-        _id: _doc._id,
-        name: _doc.name,
-        update_date: _doc.update_date,
-        creator: _doc.creator,
-      }),
+      _doc => Promise.resolve(_doc),
       (err) => {
         if (err.code === 11000) {
           if (err.errmsg.indexOf('name') !== -1) {

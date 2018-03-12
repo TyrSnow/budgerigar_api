@@ -2,7 +2,7 @@
 	"variables": [],
 	"info": {
 		"name": "budegrigar",
-		"_postman_id": "dfe2e299-1d8e-ef5d-cc39-7346ae470e21",
+		"_postman_id": "89132f50-b51c-3d82-2b95-bfdd93435772",
 		"description": "",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
 	},
@@ -25,7 +25,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"tianyu\",\n\t\"password\": \"123456\"\n}"
+							"raw": "{\n\t\"name\": \"root\",\n\t\"password\": \"123456\"\n}"
 						},
 						"description": ""
 					},
@@ -127,7 +127,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"user\": \"tianyu\",\n\t\"password\": \"123456\",\n\t\"remember\": true\n}"
+							"raw": "{\n\t\"user\": \"root\",\n\t\"password\": \"123456\",\n\t\"remember\": true\n}"
 						},
 						"description": ""
 					},
@@ -175,6 +175,95 @@
 			"name": "Project",
 			"description": "",
 			"item": [
+				{
+					"name": "语言包",
+					"description": "",
+					"item": [
+						{
+							"name": "创建一个语言包",
+							"request": {
+								"url": "{{host}}:{{port}}/api/projects/5a9c1340bc0c261c88583f60/packages",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"语言包0\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "列出项目下所有语言包",
+							"request": {
+								"url": "{{host}}:{{port}}/api/projects/5a9c1340bc0c261c88583f60/packages",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"name\": \"语言包0\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "关键词",
+					"description": "",
+					"item": [
+						{
+							"name": "新建关键词",
+							"request": {
+								"url": "{{host}}:{{port}}/api/projects/5aa12ed18ce30666908338b3/keywords",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"text\": \"测试\",\n\t\"translates\": []\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
 				{
 					"name": "获得项目列表",
 					"request": {
@@ -244,7 +333,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"测试项目2\"\n}"
+							"raw": "{\n\t\"name\": \"测试项目13\"\n}"
 						},
 						"description": ""
 					},
@@ -295,6 +384,107 @@
 						"body": {
 							"mode": "raw",
 							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "System",
+			"description": "",
+			"item": [
+				{
+					"name": "Head",
+					"description": "",
+					"item": [
+						{
+							"name": "创建头像",
+							"request": {
+								"url": "{{host}}:{{port}}/api/system/heads",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"urls\": [\"tianyu\"]\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "获得可用的头像列表",
+							"request": {
+								"url": "{{host}}:{{port}}/api/system/heads",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"urls\": [\"tianyu\"]\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		},
+		{
+			"name": "Upload",
+			"description": "",
+			"item": [
+				{
+					"name": "上传文件",
+					"request": {
+						"url": "{{host}}:{{port}}/api/upload/head",
+						"method": "POST",
+						"header": [
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/x-www-form-urlencoded",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"description": "",
+									"type": "file",
+									"src": "ntk-1924-20355.jpg"
+								}
+							]
 						},
 						"description": ""
 					},
