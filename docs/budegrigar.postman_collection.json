@@ -14,7 +14,7 @@
 				{
 					"name": "注册",
 					"request": {
-						"url": "{{host}}:{{port}}/api/Users",
+						"url": "{{host}}:{{port}}/api/users",
 						"method": "POST",
 						"header": [
 							{
@@ -25,7 +25,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"root\",\n\t\"password\": \"123456\"\n}"
+							"raw": "{\n\t\"name\": \"tianyu4\",\n\t\"password\": \"123456\"\n}"
 						},
 						"description": ""
 					},
@@ -35,20 +35,20 @@
 					"name": "检查用户名是否存在",
 					"request": {
 						"url": {
-							"raw": "{{host}}:{{port}}/api/Users/Names?name=tianyu",
+							"raw": "{{host}}:{{port}}/api/users/names?name=tianyu4",
 							"host": [
 								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
 								"api",
-								"Users",
-								"Names"
+								"users",
+								"names"
 							],
 							"query": [
 								{
 									"key": "name",
-									"value": "tianyu",
+									"value": "tianyu4",
 									"equals": true,
 									"description": ""
 								}
@@ -74,7 +74,7 @@
 				{
 					"name": "修改密码",
 					"request": {
-						"url": "{{host}}:{{port}}/api/Users/Password",
+						"url": "{{host}}:{{port}}/api/users/password",
 						"method": "PUT",
 						"header": [
 							{
@@ -116,7 +116,7 @@
 						}
 					],
 					"request": {
-						"url": "{{host}}:{{port}}/api/Sessions",
+						"url": "{{host}}:{{port}}/api/sessions",
 						"method": "POST",
 						"header": [
 							{
@@ -127,7 +127,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"user\": \"root\",\n\t\"password\": \"123456\",\n\t\"remember\": true\n}"
+							"raw": "{\n\t\"user\": \"root\",\n\t\"password\": \"456123\",\n\t\"remember\": true\n}"
 						},
 						"description": ""
 					},
@@ -135,19 +135,8 @@
 				},
 				{
 					"name": "获取当前用户资料",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"type": "text/javascript",
-								"exec": [
-									"postman.setGlobalVariable(\"token\", JSON.parse(responseBody).data.token);"
-								]
-							}
-						}
-					],
 					"request": {
-						"url": "{{host}}:{{port}}/api/Sessions",
+						"url": "{{host}}:{{port}}/api/sessions",
 						"method": "GET",
 						"header": [
 							{
@@ -260,6 +249,26 @@
 								"description": ""
 							},
 							"response": []
+						},
+						{
+							"name": "列出项目下的关键词",
+							"request": {
+								"url": "{{host}}:{{port}}/api/projects/5aa12ed18ce30666908338b3/keywords",
+								"method": "GET",
+								"header": [
+									{
+										"key": "authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"text\": \"测试\",\n\t\"translates\": []\n}"
+								},
+								"description": ""
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
@@ -268,7 +277,7 @@
 					"name": "获得项目列表",
 					"request": {
 						"url": {
-							"raw": "{{host}}:{{port}}/api/Projects?i=1&s=10",
+							"raw": "{{host}}:{{port}}/api/Projects?current=1&size=10",
 							"host": [
 								"{{host}}"
 							],
@@ -279,13 +288,13 @@
 							],
 							"query": [
 								{
-									"key": "i",
+									"key": "current",
 									"value": "1",
 									"equals": true,
 									"description": ""
 								},
 								{
-									"key": "s",
+									"key": "size",
 									"value": "10",
 									"equals": true,
 									"description": ""
@@ -333,16 +342,16 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"测试项目13\"\n}"
+							"raw": "{\n\t\"name1\": \"测试项目13\"\n}"
 						},
 						"description": ""
 					},
 					"response": []
 				},
 				{
-					"name": "创建一个项目",
+					"name": "获取项目详情",
 					"request": {
-						"url": "{{host}}:{{port}}/api/Projects/5a9aa96a53804b2ad0edcb7d",
+						"url": "{{host}}:{{port}}/api/Projects/5aa67ec74356f0cba06d075b",
 						"method": "GET",
 						"header": [
 							{
@@ -367,7 +376,7 @@
 				{
 					"name": "删除一个项目",
 					"request": {
-						"url": "{{host}}:{{port}}/api/Projects/5a9aa96a53804b2ad0edcb7d",
+						"url": "{{host}}:{{port}}/api/Projects/5aa67ec74356f0cba06d075b",
 						"method": "DELETE",
 						"header": [
 							{
@@ -491,6 +500,11 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "API",
+			"description": "",
+			"item": []
 		}
 	]
 }

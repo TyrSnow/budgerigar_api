@@ -5,10 +5,13 @@
       "name": "Launch",
       "type": "node",
       "request": "launch",
-      "program": "${workspaceFolder}/build/server.js",
+      "program": "${workspaceRoot}/node_modules/ts-node/dist/_bin.js",
+      "args": [
+        "${workspaceRoot}/src/server.ts" // 入口文件
+      ],
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector",
       "stopOnEntry": false,
-      "args": [],
-      "cwd": "${workspaceFolder}",
       "runtimeExecutable": null,
       "runtimeArgs": [
         "--nolazy",
@@ -18,8 +21,6 @@
         "NODE_ENV": "development"
       },
       "console": "internalConsole",
-      "sourceMaps": true,
-      "outFiles": ["./build/**/*.js"]
     },
     {
       "name": "Attach",
