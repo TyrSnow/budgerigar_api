@@ -31,6 +31,25 @@ const schemas = {
       },
     },
   },
+  update: {
+    body: {
+      type: 'object',
+      properties: {
+        name: {
+          type: 'string',
+        },
+        code: {
+          type: 'string',
+        },
+        desc: {
+          type: 'string',
+        },
+        flag: {
+          type: 'string',
+        },
+      }
+    }
+  },
 };
 
 export default schemas;

@@ -23,6 +23,18 @@ class LanguageCtrl {
     );
   }
 
+  @router('/batch', 'post')
+  static create_ones(req, res) {
+    const { _id } = req.user;
+    const { data } = req.body;
+
+    LanguageService.create_ones(data, _id).then(
+      SUCCESS(req, res, '[LanguageCtrl.create_ones]'),
+    ).catch(
+      ERROR(req, res, '[LanguageCtrl.create_ones]'),
+    );
+  }
+
   @router('/names', 'get')
   @validator(schemas.query_names)
   static query_names(req, res) {
@@ -97,6 +109,31 @@ class LanguageCtrl {
         ERROR(req, res, '[LanguageCtrl.query_names]')
       );
     }
+  }
+
+  @router('/:language_id', 'delete')
+  static delete_one(req, res) {
+    const { _id } = req.user;
+    const { language_id } = req.params;
+
+    LanguageService.delete_language(language_id, _id).then(
+      SUCCESS(req, res, '[LanguageCtrl.query_names]'),
+    ).catch(
+      ERROR(req, res, '[LanguageCtrl.query_names]')
+    );
+  }
+
+  @router('/:language_id', 'put')
+  @validator(schemas.update)
+  static update_one(req, res) {
+    const { _id } = req.user;
+    const { language_id } = req.params;
+
+    LanguageService.update_language(language_id, _id, req.body).then(
+      SUCCESS(req, res, '[LanguageCtrl.query_names]'),
+    ).catch(
+      ERROR(req, res, '[LanguageCtrl.query_names]')
+    );
   }
 }
 

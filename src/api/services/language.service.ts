@@ -4,6 +4,7 @@ import { LanguageModel } from '../models/Language.d';
 import Language from '../models/Language.model';
 import CODE from '../constants/Code.enum';
 import fuzzy from '../tools/fuzzy';
+import mask_object from '../tools/maskObject';
 
 let log = log4js.getLogger('default');
 
@@ -36,6 +37,19 @@ class LanguageService {
     );
   }
 
+  static create_ones(
+    list: Array<any>,
+    creator: string,
+  ): Promise<boolean> {
+    log.debug('[LanguageService.create_ones]Input arguments: ', arguments);
+    return Language.create.apply(Language, list.map(lang => {
+      lang.creator = creator;
+      return lang;
+    })).catch(err => {
+      return Promise.reject(CODE.OPERATIONS_PART_COMPLETE);
+    });
+  }
+
   static query_language_by_name(
     name: string,
     limit: number = 5,
@@ -63,6 +77,8 @@ class LanguageService {
         name: key,
       }, {
         code: key,
+      }, {
+        desc: key,
       }],
     }, {
       _id: 1,
@@ -112,6 +128,48 @@ class LanguageService {
       desc: 1,
       flag: 1,
     }).exec();
+  }
+
+  static delete_language(
+    language_id: string,
+    user: string,
+  ): Promise<boolean> {
+    log.debug('[LanguageService.delete_language]Input arguments: ', arguments);
+    return Language.findOneAndRemove({
+      _id: language_id,
+    }).then(
+      (language) => {
+        if (language) {
+          log.log(`[Operation]Delete language(${language_id}) by ${user}: ${JSON.stringify(language)}`);
+          return Promise.resolve(true);
+        }
+        return Promise.reject(CODE.LANGUAGE_NOT_EXIST);
+      }
+    )
+  }
+
+  static update_language(
+    language_id: string,
+    user: string,
+    language: any,
+  ): Promise<boolean> {
+    log.debug('[LanguageService.update_language]Input arguments: ', arguments);
+    return Language.findOneAndUpdate({
+      _id: language_id,
+    }, mask_object(language, [
+      'name',
+      'code',
+      'desc',
+      'flag',
+    ])).then(
+      _language => {
+        if (_language) {
+          log.log(`[Operation]Update language(${language_id}) by ${user} and origin data: ${JSON.stringify(_language)}`);
+          return Promise.resolve(true);
+        }
+        return Promise.reject(CODE.LANGUAGE_NOT_EXIST);
+      }
+    )
   }
 }
 

@@ -10,6 +10,7 @@ const CODE = {
   // 通用
   SUCCESS: C(10200, '操作完成'),
   ERROR: C(10500, '服务器异常'),
+  OPERATIONS_PART_COMPLETE: C(10501, '部分操作未能完成'), // 非批量导入功能不要用这个错误
   ACCESS_DENY: C(10400, '用户操作被拒绝', 400),
   DOC_NOT_EXIST: C(10401, '资源不存在'),
 
@@ -44,7 +45,8 @@ const CODE = {
   PROJECT_PACKAGE_LIMIT: C(30102, '项目语言包数目达到上限'),
 
   // 语言
-  DUMPLICATE_LANGUAGE_CODE: C(40010, '语言代码已经存在')
+  LANGUAGE_NOT_EXIST: C(40000, '语言不存在'),
+  DUMPLICATE_LANGUAGE_CODE: C(40010, '语言代码已经存在'),
 
 }
 
