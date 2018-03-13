@@ -5,35 +5,35 @@ import CODE from '../constants/Code.enum';
 let log = log4js.getLogger('default');
 
 function LIST(req, res, prefix) {
-    return (data) => {
-        res.json(Object.assign({
-            success: true,
-        }, data));
-        log.info(prefix, 'Success');
-    }
+  return (data) => {
+    res.json(Object.assign({
+      success: true,
+    }, data));
+    log.info(prefix, 'Success');
+  }
 }
 function SUCCESS(req, res, prefix) {
-    return (data) => {
-        res.json({
-            success: true,
-            data,
-        });
-        log.info(prefix, 'Success');
-    }
+  return (data) => {
+    res.json({
+      success: true,
+      data,
+    });
+    log.info(prefix, 'Success');
+  }
 }
 
 function ERROR(req, res, prefix) {
-    return (err) => {
-        if (err instanceof Error) {
-            // 未处理的系统错误
-            res.status(500).send(CODE.ERROR);
-            log.error(prefix, 'Error occur：', err);
-        } else {
-            let { status = 200, ...other } = err;
-            res.status(status).send(other);
-            log.warn(prefix, 'Response error：', err);
-        }
+  return (err) => {
+    if (err instanceof Error) {
+      // 未处理的系统错误
+      res.status(500).send(CODE.ERROR);
+      log.error(prefix, 'Error occur：', err);
+    } else {
+      let { status = 200, ...other } = err;
+      res.status(status).send(other);
+      log.warn(prefix, 'Response error：', err);
     }
+  }
 }
 
-export { SUCCESS, LIST, ERROR }
+export { SUCCESS, LIST, ERROR };

@@ -505,6 +505,241 @@
 			"name": "API",
 			"description": "",
 			"item": []
+		},
+		{
+			"name": "Language",
+			"description": "",
+			"item": [
+				{
+					"name": "创建一种语言",
+					"request": {
+						"url": "{{host}}:{{port}}/api/languages",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"中文\",\n\t\"code\": \"zh-tw\",\n\t\"desc\": \"中国台湾\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "模糊搜索名字",
+					"request": {
+						"url": {
+							"raw": "{{host}}:{{port}}/api/languages/names?key=英",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"languages",
+								"names"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "英",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"中文\",\n\t\"code\": \"zh-tw\",\n\t\"desc\": \"中国台湾\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "模糊搜索code",
+					"request": {
+						"url": {
+							"raw": "{{host}}:{{port}}/api/languages/codes?key=cn",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"languages",
+								"codes"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "cn",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"中文\",\n\t\"code\": \"zh-tw\",\n\t\"desc\": \"中国台湾\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "模糊搜索",
+					"request": {
+						"url": {
+							"raw": "{{host}}:{{port}}/api/languages/keys?key=英",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"languages",
+								"keys"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "英",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"中文\",\n\t\"code\": \"zh-tw\",\n\t\"desc\": \"中国台湾\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "获得全部的语言（分页）",
+					"request": {
+						"url": "{{host}}:{{port}}/api/languages",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"中文\",\n\t\"code\": \"zh-tw\",\n\t\"desc\": \"中国台湾\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "获得全部的语言（不分页）",
+					"request": {
+						"url": {
+							"raw": "{{host}}:{{port}}/api/languages?all",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"languages"
+							],
+							"query": [
+								{
+									"key": "all",
+									"value": "",
+									"equals": false,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"中文\",\n\t\"code\": \"zh-tw\",\n\t\"desc\": \"中国台湾\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

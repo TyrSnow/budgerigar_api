@@ -18,10 +18,10 @@ declare namespace ProjectModel {
     translates: Array<ITranslate>
   }
 
-  interface IPackage extends Document {
+  interface IPackage {
     name: string
     desc?: string
-    texts: Array<IText>
+    texts?: Array<IText>
   }
 
   interface IProject extends Document {
