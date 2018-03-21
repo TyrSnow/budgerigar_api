@@ -44,10 +44,16 @@ const CODE = {
   PROJECT_KEYWORD_LIMIT: C(30101, '项目关键词数目达到上限'),
   PROJECT_PACKAGE_LIMIT: C(30102, '项目语言包数目达到上限'),
 
+  // 项目-语言包
+  PACKAGE_NOT_EXIST: C(31000, '语言包不存在'),
+
+  // 项目-语言包-语句
+  PROJECT_TEXT_DUMPLATE: C(32000, '项目中已经包含了这句话'),
+
   // 语言
   LANGUAGE_NOT_EXIST: C(40000, '语言不存在'),
   DUMPLICATE_LANGUAGE_CODE: C(40010, '语言代码已经存在'),
 
 }
 
-export default CODE
+export default CODE;

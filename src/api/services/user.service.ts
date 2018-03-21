@@ -122,7 +122,7 @@ class UserSrv {
             }
         )
     }
-    
+
     /**
      * 核实用户的密码
      * @param user 
@@ -162,16 +162,16 @@ class UserSrv {
         return User.findOneAndUpdate({
             _id: user._id
         }, {
-            password,
-        }).then(
-            (_user) => {
-                if (_user) {
-                    return Promise.resolve();
-                } else {
-                    return Promise.reject(CODE.USER_NOT_EXIST);
+                password,
+            }).then(
+                (_user) => {
+                    if (_user) {
+                        return Promise.resolve();
+                    } else {
+                        return Promise.reject(CODE.USER_NOT_EXIST);
+                    }
                 }
-            }
-        );
+            );
     }
 }
 

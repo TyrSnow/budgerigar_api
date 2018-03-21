@@ -1,6 +1,6 @@
 import * as log4js from 'log4js';
-import { ProjectModel } from '../models/Project/index.d';
-import Project from '../models/Project/index';
+import { ProjectModel } from '../models/Project.d';
+import Project from '../models/Project.model';
 import CODE from '../constants/Code.enum';
 
 let log = log4js.getLogger('default');

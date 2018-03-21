@@ -1,11 +1,6 @@
 import * as mongoose from 'mongoose';
-import { ProjectModel } from './index.d';
+import { ProjectModel } from './Project.d';
 const Schema = mongoose.Schema;
-
-import Translate from './translate.model';
-import Keyword from './keyword.model';
-import Text from './text.model';
-import Package from './package.model';
 
 let model = new Schema({
   name: {
@@ -26,8 +21,6 @@ let model = new Schema({
     type: Schema.Types.ObjectId,
     rel: 'User',
   }],
-  // packages: [Package],
-  // keywords: [Keyword],
   create_date: Date,
   update_date: Date,
 });
@@ -35,9 +28,3 @@ let model = new Schema({
 const Project = mongoose.model<ProjectModel.IProject>('Project', model);
 
 export default Project;
-export {
-  Package,
-  // Keyword,
-  Text,
-  Translate,
-};
