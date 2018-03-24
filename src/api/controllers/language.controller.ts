@@ -2,6 +2,7 @@ import { Router } from 'express';
 
 import router from '../tools/router';
 import validator from '../tools/validator';
+import fuzzy from '../tools/fuzzy';
 import { SUCCESS, LIST, ERROR } from '../tools/response';
 
 import LanguageService from '../services/language.service';
@@ -73,22 +74,39 @@ class LanguageCtrl {
 
   @router('/', 'get')
   static list_all(req, res) {
-    const { current = 1, size = 10, all } = req.query;
+    const { current = 1, size = 10, all } = req.query; // 分页
+    const { key } = req.query; // 搜索参数
     
+    let query:any;
+    if (key) {
+      let _key = fuzzy(key);
+      query = {
+        $or: [{
+          name: _key,
+        }, {
+          code: _key,
+        }, {
+          desc: _key,
+        }],
+      };
+    } else {
+      query = {};
+    }
+
     if (all || (all === '')) {
-      LanguageService.list_languages().then(
+      LanguageService.list_languages(query).then(
         SUCCESS(req, res, '[LanguageCtrl.query_names]'),
       ).catch(
         ERROR(req, res, '[LanguageCtrl.query_names]')
       );
     } else {
       let total;
-      LanguageService.count_languages().then(
+      LanguageService.count_languages(query).then(
         count => {
           total = count;
           let skip = (current - 1) * size;
           if (skip < total) {
-            return LanguageService.query_languages(skip, size);
+            return LanguageService.query_languages(skip, size - 0, query);
           }
           return Promise.resolve([]);
         }

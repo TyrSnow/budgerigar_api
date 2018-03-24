@@ -105,23 +105,31 @@ class LanguageService {
   }
 
   static count_languages(
+    query: object,
   ): Promise<number> {
     log.debug('[LanguageService.count_languages]Input arguments: ', arguments);
-    return Language.count({}).exec();
+    return Language.count(query).exec();
   }
 
   static query_languages(
     skip: number,
     size: number,
+    query: object,
   ): Promise<Array<LanguageModel.ILanguage>> {
     log.debug('[LanguageService.query_languages]Input arguments: ', arguments);
-    return Language.find().skip(skip).limit(size).exec();
+    return Language
+      .find(query)
+      .populate('creator', 'name')
+      .skip(skip)
+      .limit(size)
+      .exec();
   }
 
   static list_languages(
+    query: string,
   ): Promise<Array<LanguageModel.ILanguage>> {
     log.debug('[LanguageService.query_languages]Input arguments: ', arguments);
-    return Language.find({}, {
+    return Language.find(query, {
       _id: 1,
       name: 1,
       code: 1,

@@ -51,6 +51,9 @@ class ProjectService {
     .in([userId])
     .skip(size * (index - 1))
     .limit(size - 0)
+    .populate('creator', '_id name head')
+    .populate('members', '_id name head')
+    .populate('admins', '_id name head')
     .exec()
     .then(
       res => Promise.resolve(res)

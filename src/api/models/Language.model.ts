@@ -17,7 +17,7 @@ let model = new Schema({
   },
   creator: {
     type: Schema.Types.ObjectId,
-    rel: 'User',
+    ref: 'User',
   },
   desc: String,
   flag: String,

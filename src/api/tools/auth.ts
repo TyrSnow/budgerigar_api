@@ -37,10 +37,13 @@ function auth(auth_type) {
     const originProperty = target[propertyKey];
     target[propertyKey] = (req, res) => {
       requestUser(req, res, () => {
-        if (hasAuth(auth_type, req.user.auth)) {
-          originProperty(req, res);
+        if (req.user) {
+          if (hasAuth(auth_type, req.user.auth)) {
+            return originProperty(req, res);
+          }
+          return ERROR(req, res, `[AUTH]${auth_type}`)(CODE.LOW_AUTHORIZE);
         } else {
-          ERROR(req, res, `[AUTH]${auth_type}`)(CODE.LOW_AUTHORIZE);
+          return ERROR(req, res, `[AUTH]${auth_type}`)(CODE.NOT_AUTHORIZE);
         }
       })
     };

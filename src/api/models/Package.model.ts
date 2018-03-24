@@ -13,7 +13,7 @@ const schema = new Schema({
   },
   project_id: {
     type: Schema.Types.ObjectId,
-    rel: 'Project',
+    ref: 'Project',
     required: true,
   },
   template: {
@@ -23,7 +23,7 @@ const schema = new Schema({
   },
   texts: [{
     type: Schema.Types.ObjectId,
-    rel: 'Text',
+    ref: 'Text',
   }],
 });
 

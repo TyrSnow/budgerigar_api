@@ -11,15 +11,15 @@ let model = new Schema({
   desc: String,
   creator: {
     type: Schema.Types.ObjectId,
-    rel: 'User',
+    ref: 'User',
   },
   admins: [{
     type: Schema.Types.ObjectId,
-    rel: 'User',
+    ref: 'User',
   }],
   members: [{
     type: Schema.Types.ObjectId,
-    rel: 'User',
+    ref: 'User',
   }],
   create_date: Date,
   update_date: Date,

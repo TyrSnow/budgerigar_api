@@ -15,10 +15,10 @@ const CODE = {
   DOC_NOT_EXIST: C(10401, '资源不存在'),
 
   // 用户权限
-  NOT_AUTHORIZE: C(20000, '需要登陆才能进行此项操作'),
+  NOT_AUTHORIZE: C(20000, '需要登陆才能进行此项操作', 401),
   LOW_AUTHORIZE: C(20001, '您的权限不足', 401),
-  EXPIRE_AUTHORIZE: C(20002, '您已自动退出系统，请重新登陆', 400),
-  DUMPLICAT_AUTHORIZE: C(20003, '您已在其他地方登陆', 400),
+  EXPIRE_AUTHORIZE: C(20002, '您已自动退出系统，请重新登陆', 401),
+  DUMPLICAT_AUTHORIZE: C(20003, '您已在其他地方登陆', 401),
   NO_AUTH_TO_ACCESS_RESOURCE: C(20004, '您没有访问它的权限'),
 
   // 登陆注册
