@@ -29,5 +29,9 @@ declare namespace UserModel {
     phone?: string
     head?: string
     auth?: AUTH_TYPE
+    block?: boolean
+    block_date?: Date
+    delete?: boolean
+    delete_date?: Date
   }
 }

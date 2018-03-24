@@ -39,6 +39,10 @@ let model = new Schema({
     type: Date,
     default: Date.now,
   },
+  block: Boolean,
+  block_date: Date,
+  delete: Boolean,
+  delete_date: Date,
 });
 
 const User = mongoose.model<UserModel.IUser>('User', model);

@@ -20,7 +20,7 @@ class LanguageCtrl {
     LanguageService.create(name, code, _id, desc, flag).then(
       SUCCESS(req, res, '[LanguageCtrl.create]'),
     ).catch(
-      ERROR(req, res, '[LanguageCtrl.create]')
+      ERROR(req, res, '[LanguageCtrl.create]'),
     );
   }
 
@@ -44,7 +44,7 @@ class LanguageCtrl {
     LanguageService.query_language_by_name(key).then(
       SUCCESS(req, res, '[LanguageCtrl.query_names]'),
     ).catch(
-      ERROR(req, res, '[LanguageCtrl.query_names]')
+      ERROR(req, res, '[LanguageCtrl.query_names]'),
     );
   }
 
@@ -57,7 +57,7 @@ class LanguageCtrl {
     LanguageService.query_language_by_code(key).then(
       SUCCESS(req, res, '[LanguageCtrl.query_names]'),
     ).catch(
-      ERROR(req, res, '[LanguageCtrl.query_names]')
+      ERROR(req, res, '[LanguageCtrl.query_names]'),
     );
   }
 
@@ -68,7 +68,7 @@ class LanguageCtrl {
     LanguageService.query_language_by_name_or_code(key).then(
       SUCCESS(req, res, '[LanguageCtrl.query_names]'),
     ).catch(
-      ERROR(req, res, '[LanguageCtrl.query_names]')
+      ERROR(req, res, '[LanguageCtrl.query_names]'),
     );
   }
 
@@ -97,7 +97,7 @@ class LanguageCtrl {
       LanguageService.list_languages(query).then(
         SUCCESS(req, res, '[LanguageCtrl.query_names]'),
       ).catch(
-        ERROR(req, res, '[LanguageCtrl.query_names]')
+        ERROR(req, res, '[LanguageCtrl.query_names]'),
       );
     } else {
       let total;
@@ -124,7 +124,7 @@ class LanguageCtrl {
       ).then(
         LIST(req, res, '[LanguageCtrl.query_names]'),
       ).catch(
-        ERROR(req, res, '[LanguageCtrl.query_names]')
+        ERROR(req, res, '[LanguageCtrl.query_names]'),
       );
     }
   }
@@ -137,7 +137,7 @@ class LanguageCtrl {
     LanguageService.delete_language(language_id, _id).then(
       SUCCESS(req, res, '[LanguageCtrl.query_names]'),
     ).catch(
-      ERROR(req, res, '[LanguageCtrl.query_names]')
+      ERROR(req, res, '[LanguageCtrl.query_names]'),
     );
   }
 

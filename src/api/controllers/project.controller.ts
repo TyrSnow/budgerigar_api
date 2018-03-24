@@ -49,7 +49,7 @@ class ProjectCtrl {
             page: {
               current: current,
               size: size,
-              total: count
+              total: count,
             }
           })
         } else {

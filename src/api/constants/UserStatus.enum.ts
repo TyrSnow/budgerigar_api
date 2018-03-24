@@ -6,20 +6,21 @@ import { UserModel } from "../models/User";
  * DELETE是用户自己删除了自己的账户
  */
 export enum UserStatus {
-    NORMAL = 0,
-    BLOCK,
-    DELETE,
-    INITIALIZE
+  NORMAL = 0,
+  BLOCK,
+  DELETE,
+  INITIALIZE,
 }
+
 /**
  * 返回用户的状态
  */
 export function getUserStatus(user: UserModel.IUser): UserStatus {
-    if (user.block) {
-        return UserStatus.BLOCK;
-    }
-    if (user.delete) {
-        return UserStatus.DELETE;
-    }
-    return UserStatus.NORMAL;
+  if (user.block) {
+    return UserStatus.BLOCK;
+  }
+  if (user.delete) {
+    return UserStatus.DELETE;
+  }
+  return UserStatus.NORMAL;
 }

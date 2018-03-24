@@ -20,6 +20,7 @@ const CODE = {
   EXPIRE_AUTHORIZE: C(20002, '您已自动退出系统，请重新登陆', 401),
   DUMPLICAT_AUTHORIZE: C(20003, '您已在其他地方登陆', 401),
   NO_AUTH_TO_ACCESS_RESOURCE: C(20004, '您没有访问它的权限'),
+  ACCOUNT_HAS_BLOCKED: C(20005, '您的账号已经被禁用'),
 
   // 登陆注册
   WRONG_AUTHORIZE: C(21000, '用户名或密码错误'),

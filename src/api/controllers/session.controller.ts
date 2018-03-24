@@ -1,5 +1,6 @@
 import { Router } from 'express';
 
+import CODE from '../constants/Code.enum';
 import router from '../tools/router';
 import validator from '../tools/validator';
 import { auth, AUTH_TYPE } from '../tools/auth';
@@ -20,7 +21,12 @@ class SessionCtrl {
   static login(req, res) {
     let { user, password, remember } = req.body;
     UserSrv.find_user(user).then(
-      _user => UserSrv.valid_password(_user, user, password)
+      _user => {
+        if (_user.block) {
+          return Promise.reject(CODE.ACCOUNT_HAS_BLOCKED);
+        }
+        return UserSrv.valid_password(_user, user, password);
+      },
     ).then(
       (_user) => {
         return Promise.resolve(TokenSrv.sign({
@@ -48,14 +54,22 @@ class SessionCtrl {
   static solveAuth(req, res) {
     let { user } = req;
     let { iat, exp, ...other } = user;
-    let newToken = TokenSrv.sign(
-      other,
-      other.remember ? '30d' : '1d'
-    );
-    Promise.resolve(newToken).then(
-      SUCCESS(req, res, '[UserCtrl.solveAuth]')
+    UserSrv.find_user_by_id(user._id).then(
+      _user => {
+        if (_user.block) {
+          return Promise.reject(CODE.ACCOUNT_HAS_BLOCKED);
+        } else {
+          let newToken = TokenSrv.sign(
+            other,
+            other.remember ? '30d' : '1d'
+          );
+          return Promise.resolve(newToken);
+        }
+      }
+    ).then(
+      SUCCESS(req, res, '[UserCtrl.solveAuth]'),
     ).catch(
-      ERROR(req, res, '[UserCtrl.login]')
+      ERROR(req, res, '[UserCtrl.login]'),
     );
   }
 }
