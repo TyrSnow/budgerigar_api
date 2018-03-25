@@ -9,6 +9,14 @@ import mask_object from '../tools/maskObject';
 let log = log4js.getLogger('default');
 
 class LanguageService {
+  /**
+   * 创建单个的语言
+   * @param name 
+   * @param code 
+   * @param creator 
+   * @param desc 
+   * @param flag 
+   */
   static create(
     name: string,
     code: string,
@@ -37,6 +45,11 @@ class LanguageService {
     );
   }
 
+  /**
+   * 批量创建语言
+   * @param list 
+   * @param creator 
+   */
   static create_ones(
     list: Array<any>,
     creator: string,
@@ -50,6 +63,11 @@ class LanguageService {
     });
   }
 
+  /**
+   * 使用名字查询语言
+   * @param name 
+   * @param limit 
+   */
   static query_language_by_name(
     name: string,
     limit: number = 5,
@@ -66,6 +84,11 @@ class LanguageService {
     }).limit(limit).exec();
   }
 
+  /**
+   * 使用名字或code查询语言
+   * @param name 
+   * @param limit 
+   */
   static query_language_by_name_or_code(
     name: string,
     limit: number = 5,
@@ -88,6 +111,11 @@ class LanguageService {
     }).limit(limit).exec();
   }
 
+  /**
+   * 使用code查询语言
+   * @param code 
+   * @param limit 
+   */
   static query_language_by_code(
     code: string,
     limit: number = 5,
@@ -104,6 +132,10 @@ class LanguageService {
     }).limit(limit).exec();
   }
 
+  /**
+   * 语言总数
+   * @param query 
+   */
   static count_languages(
     query: object,
   ): Promise<number> {
@@ -111,6 +143,12 @@ class LanguageService {
     return Language.count(query).exec();
   }
 
+  /**
+   * 分页语言列表
+   * @param skip 
+   * @param size 
+   * @param query 
+   */
   static query_languages(
     skip: number,
     size: number,
@@ -125,6 +163,10 @@ class LanguageService {
       .exec();
   }
 
+  /**
+   * 无分页语言列表
+   * @param query 
+   */
   static list_languages(
     query: string,
   ): Promise<Array<LanguageModel.ILanguage>> {
@@ -138,6 +180,11 @@ class LanguageService {
     }).exec();
   }
 
+  /**
+   * 删除一个语言
+   * @param language_id 
+   * @param user 
+   */
   static delete_language(
     language_id: string,
     user: string,

@@ -26,17 +26,33 @@ class PackageCtrl {
       },
     ).then(
       () => {
-        if (key) {
+        if (key) { // 指定key
           return Promise.resolve(key);
         }
-        return TextService.generate_text_key(text);
+        return TextService.get_text_key(text, project);
       }
     ).then(
       (key) => TextService.create(text, key, project),
     ).then(
       (textDoc) => {
-        return PackageService.append_texts(package_id, [textDoc._id]);
+        return PackageService.append_text(package_id, textDoc._id);
       },
+    ).then(
+      SUCCESS(req, res, '[PackageCtrl.add_text]'),
+    ).catch(
+      ERROR(req, res, '[PackageCtrl.add_text]')
+    );
+  }
+
+  @router('/:package_id', 'get')
+  static get_package(req, res) {
+    let { package_id } = req.params;
+    let { _id } = req.user;
+    
+    PackageService.get_project_id(package_id).then(
+      (project_id) => ProjectService.validMember(project_id, _id),
+    ).then(
+      () => PackageService.get_package(package_id),
     ).then(
       SUCCESS(req, res, '[PackageCtrl.add_text]'),
     ).catch(

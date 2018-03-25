@@ -6,6 +6,13 @@ import mask_object from '../tools/maskObject';
 let log = log4js.getLogger('default');
 
 class PackageService {
+  /**
+   * 创建一个语言包
+   * @param project_id 
+   * @param user_id 
+   * @param name 
+   * @param desc 
+   */
   static create(
     project_id: string,
     user_id: string,
@@ -19,27 +26,58 @@ class PackageService {
       project_id,
     });
     
-    return pack.save();
+    return pack.save().then(
+      (pack) => {
+        return Promise.resolve(pack);
+      },
+      (err) => {
+        if (err.code === 11000) {
+          if (err.errmsg.indexOf('project_id_1_name_1') !== -1) {
+            return Promise.reject(CODE.DUMPLICAT_PACKAGE_NAME);
+          }
+        }
+        return Promise.reject(err);
+      }
+    );
   }
 
+  /**
+   * 列出项目下的语言包
+   * @param project_id 
+   */
   static list_project_packages(
     project_id: string,
   ): Promise<Array<PackageModel.IPackage>> {
     log.debug('[PackageService.list_project_packages]Input arguments: ', arguments);
     return Package.find({
-      project: project_id,
+      project_id,
+    }, {
+      name: 1,
+      project_id: 1,
     }).exec();
   }
 
+  /**
+   * 获得一个语言包详情
+   * @param package_id 
+   */
   static get_package(
     package_id: string
   ): Promise<PackageModel.IPackage> {
     log.debug('[PackageService.get_package]Input arguments: ', arguments);
-    return Package.findOne({
-      _id: package_id,
-    }).exec();
+    return Package
+      .findOne({
+        _id: package_id,
+      })
+      .populate('texts', 'text key translates')
+      .exec();
   }
 
+  /**
+   * 更新一个语言包的资料
+   * @param package_id 
+   * @param pack 只有其中的name和desc字段会生效
+   */
   static update_package_info(
     package_id: string,
     pack: object,
@@ -57,6 +95,11 @@ class PackageService {
     )
   }
 
+  /**
+   * 更新一个语言包的输出模板
+   * @param package_id 
+   * @param template 
+   */
   static update_package_template(
     package_id: string,
     template: object,
@@ -74,16 +117,21 @@ class PackageService {
     );
   }
 
-  static append_texts(
+  /**
+   * 向语言包中添加语句
+   * @param package_id 
+   * @param text_id 
+   */
+  static append_text(
     package_id: string,
-    text_ids: Array<string>,
+    text_id: string,
   ): Promise<boolean> {
     log.debug('[PackageService.append_texts]Input arguments: ', arguments);
     return Package.findOneAndUpdate({
       _id: package_id,
     }, {
-      $addToSet: {
-        texts: text_ids,
+      $push: {
+        texts: text_id,
       }
     }).then(
       (res) => {
@@ -95,6 +143,11 @@ class PackageService {
     );
   }
 
+  /**
+   * 将语句从语言包中移除
+   * @param package_id 
+   * @param text_id 
+   */
   static remove_text(
     package_id: string,
     text_id: string,
@@ -114,6 +167,10 @@ class PackageService {
     );
   }
 
+  /**
+   * 获得语言包对应的项目id
+   * @param package_id 
+   */
   static get_project_id(
     package_id: string,
   ): Promise<string> {

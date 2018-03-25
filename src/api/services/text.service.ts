@@ -7,6 +7,13 @@ import mask_object from '../tools/maskObject';
 let log = log4js.getLogger('default');
 
 class TextService {
+  /**
+   * 录入语句
+   * @param text 
+   * @param key 
+   * @param project_id 
+   * @param translates 
+   */
   static create(
     text: string,
     key: string,
@@ -52,6 +59,11 @@ class TextService {
     return pys.map(wordPy => wordPy[0]).join('');
   }
   
+  /**
+   * 返回一个语句的key
+   * @param text 
+   * @param project_id 
+   */
   static get_text_key(
     text: string,
     project_id,
@@ -64,12 +76,13 @@ class TextService {
         if (res) {
           return Promise.resolve(res.key);
         }
-        return Promise.reject(false);
+        return Promise.resolve(TextService.generate_text_key(text));
       },
     );
   }
+
   /**
-   * 获得项目中存在的同样的句子
+   * 获得系统中存在的同样的句子
    * @param text 
    */
   static list_same_texts(

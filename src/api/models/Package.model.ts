@@ -32,5 +32,12 @@ schema.index({ // 保证可以快速拿到项目id用于验证用户权限
   project_id: 1,
 });
 
+schema.index({ // 同一项目下语言包名应唯一
+  project_id: 1,
+  name: 1,
+}, {
+  unique: true,
+});
+
 const Package = mongoose.model<PackageModel.IPackage>('Package', schema);
 export default Package;

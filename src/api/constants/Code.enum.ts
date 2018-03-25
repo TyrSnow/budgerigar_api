@@ -47,6 +47,7 @@ const CODE = {
 
   // 项目-语言包
   PACKAGE_NOT_EXIST: C(31000, '语言包不存在'),
+  DUMPLICAT_PACKAGE_NAME: C(31001, '项目中已经有同名语言包'),
 
   // 项目-语言包-语句
   PROJECT_TEXT_DUMPLATE: C(32000, '项目中已经包含了这句话'),
