@@ -72,6 +72,106 @@
 					"response": []
 				},
 				{
+					"name": "列出所有用户",
+					"request": {
+						"url": {
+							"raw": "{{host}}:{{port}}/api/users?size=10&current=1",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"users"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "10",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "current",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"tianyu\",\n\t\"password\": \"123456\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "禁用某个用户",
+					"request": {
+						"url": "{{host}}:{{port}}/api/users/5a9a59c7974b8c69a0ee6f74/block",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "解禁某个用户账户",
+					"request": {
+						"url": "{{host}}:{{port}}/api/users/5a9a59c7974b8c69a0ee6f74/block",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
 					"name": "修改密码",
 					"request": {
 						"url": "{{host}}:{{port}}/api/users/password",
@@ -342,7 +442,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name1\": \"测试项目13\"\n}"
+							"raw": "{\n\t\"name\": \"测试项目13\"\n}"
 						},
 						"description": ""
 					},
@@ -351,7 +451,7 @@
 				{
 					"name": "获取项目详情",
 					"request": {
-						"url": "{{host}}:{{port}}/api/Projects/5aa67ec74356f0cba06d075b",
+						"url": "{{host}}:{{port}}/api/Projects/5aa908dd399a7cb4f0f4d179",
 						"method": "GET",
 						"header": [
 							{
@@ -536,6 +636,81 @@
 					"response": []
 				},
 				{
+					"name": "批量创建语言",
+					"request": {
+						"url": "{{host}}:{{port}}/api/languages/batch",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"data\": [{\n\t\t\"name\": \"中文\",\n\t\t\"code\": \"zh-cn\",\n\t\t\"desc\": \"中华人民共和国\"\n\t}, {\n\t\t\"name\": \"中文\",\n\t\t\"code\": \"zh-tw\",\n\t\t\"desc\": \"中国台湾\"\n\t}, {\n\t\t\"name\": \"中文\",\n\t\t\"code\": \"zh-hk\",\n\t\t\"desc\": \"中国香港特别行政区\"\n\t}, {\n\t\t\"name\": \"中文\",\n\t\t\"code\": \"zh-sg\",\n\t\t\"desc\": \"新加坡\"\n\t}, {\n\t\t\"name\": \"英语\",\n\t\t\"code\": \"en\",\n\t\t\"desc\": \"\"\n\t}, {\n\t\t\"name\": \"英语\",\n\t\t\"code\": \"en-us\",\n\t\t\"desc\": \"美国\"\n\t}, {\n\t\t\"name\": \"英语\",\n\t\t\"code\": \"en-gb\",\n\t\t\"desc\": \"英国\"\n\t}, {\n\t\t\"name\": \"英语\",\n\t\t\"code\": \"en-au\",\n\t\t\"desc\": \"澳大利亚\"\n\t}, {\n\t\t\"name\": \"英语\",\n\t\t\"code\": \"en-ca\",\n\t\t\"desc\": \"加拿大\"\n\t}, {\n\t\t\"name\": \"英语\",\n\t\t\"code\": \"en-nz\",\n\t\t\"desc\": \"新西兰\"\n\t}, {\n\t\t\"name\": \"英语\",\n\t\t\"code\": \"en-ie\",\n\t\t\"desc\": \"爱尔兰\"\n\t}, {\n\t\t\"name\": \"英语\",\n\t\t\"code\": \"en-za\",\n\t\t\"desc\": \"南非\"\n\t}, {\n\t\t\"name\": \"英语\",\n\t\t\"code\": \"en-jm\",\n\t\t\"desc\": \"牙买加\"\n\t}, {\n\t\t\"name\": \"英语\",\n\t\t\"code\": \"en-bz\",\n\t\t\"desc\": \"伯利兹\"\n\t}, {\n\t\t\"name\": \"英语\",\n\t\t\"code\": \"en-tt\",\n\t\t\"desc\": \"特立尼达\"\n\t}]\n}\n\t"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "更新语言",
+					"request": {
+						"url": "{{host}}:{{port}}/api/languages/5aa7d6459741dd68407d1917",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"中文\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "删除语言",
+					"request": {
+						"url": "{{host}}:{{port}}/api/languages/5aa7d4e80117d04368b455f8",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
 					"name": "模糊搜索名字",
 					"request": {
 						"url": {
@@ -629,7 +804,7 @@
 					"name": "模糊搜索",
 					"request": {
 						"url": {
-							"raw": "{{host}}:{{port}}/api/languages/keys?key=英",
+							"raw": "{{host}}:{{port}}/api/languages/keys?key=s",
 							"host": [
 								"{{host}}"
 							],
@@ -642,7 +817,7 @@
 							"query": [
 								{
 									"key": "key",
-									"value": "英",
+									"value": "s",
 									"equals": true,
 									"description": ""
 								}
@@ -673,7 +848,32 @@
 				{
 					"name": "获得全部的语言（分页）",
 					"request": {
-						"url": "{{host}}:{{port}}/api/languages",
+						"url": {
+							"raw": "{{host}}:{{port}}/api/languages?current=1&size=5",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"languages"
+							],
+							"query": [
+								{
+									"key": "current",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "5",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -699,7 +899,7 @@
 					"name": "获得全部的语言（不分页）",
 					"request": {
 						"url": {
-							"raw": "{{host}}:{{port}}/api/languages?all",
+							"raw": "{{host}}:{{port}}/api/languages?all&key=中",
 							"host": [
 								"{{host}}"
 							],
@@ -713,6 +913,12 @@
 									"key": "all",
 									"value": "",
 									"equals": false,
+									"description": ""
+								},
+								{
+									"key": "key",
+									"value": "中",
+									"equals": true,
 									"description": ""
 								}
 							],
@@ -734,6 +940,202 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\n\t\"name\": \"中文\",\n\t\"code\": \"zh-tw\",\n\t\"desc\": \"中国台湾\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Package",
+			"description": "",
+			"item": [
+				{
+					"name": "Text",
+					"description": "",
+					"item": [
+						{
+							"name": "录入语句",
+							"request": {
+								"url": "{{host}}:{{port}}/api/packages/5ab7883caac62c223039731d/texts",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"text\": \"这句话也是测试用的3\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "创建语言包",
+					"request": {
+						"url": "{{host}}:{{port}}/api/packages",
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"测试项目13\",\n\t\"project\": \"5aa908dd399a7cb4f0f4d179\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "列出项目下的语言包",
+					"request": {
+						"url": {
+							"raw": "{{host}}:{{port}}/api/packages?project=5aa908dd399a7cb4f0f4d179",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"packages"
+							],
+							"query": [
+								{
+									"key": "project",
+									"value": "5aa908dd399a7cb4f0f4d179",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"测试项目13\",\n\t\"project\": \"5aa908dd399a7cb4f0f4d179\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "获得语言包详情",
+					"request": {
+						"url": {
+							"raw": "{{host}}:{{port}}/api/packages?project=5aa908dd399a7cb4f0f4d179",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"packages"
+							],
+							"query": [
+								{
+									"key": "project",
+									"value": "5aa908dd399a7cb4f0f4d179",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"测试项目13\",\n\t\"project\": \"5aa908dd399a7cb4f0f4d179\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "根据语言包配置渲染出结果",
+					"request": {
+						"url": {
+							"raw": "{{host}}:{{port}}/api/packages/5aa908dd399a7cb4f0f4d179?lang=zh-CN",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"packages",
+								"5aa908dd399a7cb4f0f4d179"
+							],
+							"query": [
+								{
+									"key": "lang",
+									"value": "zh-CN",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"测试项目13\",\n\t\"project\": \"5aa908dd399a7cb4f0f4d179\"\n}"
 						},
 						"description": ""
 					},

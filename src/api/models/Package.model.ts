@@ -16,6 +16,10 @@ const schema = new Schema({
     ref: 'Project',
     required: true,
   },
+  languages: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Language',
+  }],
   template: {
     head: String,
     line: String,

@@ -11,7 +11,8 @@ declare namespace PackageModel {
     name: string
     desc: string
     project_id: string
+    languages: Array<string>
     template: ITemplate
-    texts: [String]
+    texts: Array<string>
   }
 }
