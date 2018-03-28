@@ -21,6 +21,10 @@ let model = new Schema({
     type: Schema.Types.ObjectId,
     ref: 'User',
   }],
+  keywords: [{
+    type: Schema.Types.ObjectId,
+    ref: 'Text',
+  }],
   create_date: Date,
   update_date: Date,
 });

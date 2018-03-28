@@ -39,9 +39,10 @@ class ProjectCtrl {
   @validator(schemas.query)
   static query(req, res) {
     let { _id } = req.user;
-    let { current = 1, size = 10 } = req.query;
+    let { current = 1, size = 10, self } = req.query;
 
-    ProjectService.count(_id).then(
+    let id = self === '' ? _id : undefined;
+    ProjectService.count(id).then(
       (count) => {
         if (count < (current - 1) * size) {
           return Promise.resolve({
@@ -49,11 +50,11 @@ class ProjectCtrl {
             page: {
               current: current,
               size: size,
-              total: count,
+              total: count
             }
-          })
+          });
         } else {
-          return ProjectService.list(_id, current, size).then(
+          return ProjectService.list(id, current, size).then(
             (list) => {
               return Promise.resolve({
                 list: list,
@@ -62,7 +63,7 @@ class ProjectCtrl {
                   size: size,
                   total: count
                 }
-              })
+              });
             }
           )
         }

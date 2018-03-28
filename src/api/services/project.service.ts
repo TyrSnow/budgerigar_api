@@ -36,7 +36,7 @@ class ProjectService {
   }
 
   /**
-   * 列出某个用户可以访问的项目
+   * 列出全部项目
    * @param userId 
    * @param index 
    * @param size 
@@ -47,31 +47,71 @@ class ProjectService {
     size: number
   ): Promise<ProjectModel.IProject[]> {
     log.debug('[ProjectService.list]Input arguments: ', arguments);
-    return Project.where("members")
-    .in([userId])
-    .skip(size * (index - 1))
-    .limit(size - 0)
-    .populate('creator', '_id name head')
-    .populate('members', '_id name head')
-    .populate('admins', '_id name head')
-    .exec()
-    .then(
-      res => Promise.resolve(res)
-    )
+    let query = userId ? {
+      members: userId,
+    } : {};
+    return Project.find(query)
+      .skip(size * (index - 1))
+      .limit(size - 0)
+      .populate('creator', '_id name head')
+      .populate('members', '_id name head')
+      .populate('admins', '_id name head')
+      .exec()
+      .then(
+        res => Promise.resolve(res)
+      );
   }
 
   /**
-   * 查出某个用户可以访问的项目个数
-   * @param userId 
+   * 查项目个数
+   * @param userId ?
    */
   static count(
     userId: string
   ): Promise<number> {
     log.debug('[ProjectService.count]Input arguments: ', arguments);
-    return Project.where("members")
-    .in([userId])
-    .count()
-    .exec();
+    let query = userId ? {
+      members: userId,
+    } : {};
+    return Project.find(query)
+      .count()
+      .exec();
+  }
+
+  /**
+   * 列出满足条件的项目
+   * @param query 
+   * @param index 
+   * @param size 
+   */
+  static query(
+    query: object,
+    index: number,
+    size: number,
+  ): Promise<ProjectModel.IProject[]> {
+    log.debug('[ProjectService.query]Input arguments: ', arguments);
+    return Project
+      .find(query)
+      .skip(size * (index - 1))
+      .limit(size - 0)
+      .populate('creator', '_id name head')
+      .populate('members', '_id name head')
+      .populate('admins', '_id name head')
+      .exec()
+      .then(
+        res => Promise.resolve(res)
+      );
+  }
+
+  /**
+   * 查满足条件的项目个数
+   * @param query 
+   */
+  static query_count(
+    query: object,
+  ): Promise<number> {
+    log.debug('[ProjectService.query_count]Input arguments: ', arguments);
+    return Project.count(query).exec();
   }
 
   /**
