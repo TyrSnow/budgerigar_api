@@ -50,16 +50,13 @@ class ProjectService {
     let query = userId ? {
       members: userId,
     } : {};
-    return Project.find(query)
+    return Project
+      .find(query, {
+        name: 1,
+      })
       .skip(size * (index - 1))
       .limit(size - 0)
-      .populate('creator', '_id name head')
-      .populate('members', '_id name head')
-      .populate('admins', '_id name head')
-      .exec()
-      .then(
-        res => Promise.resolve(res)
-      );
+      .exec();
   }
 
   /**
@@ -79,42 +76,6 @@ class ProjectService {
   }
 
   /**
-   * 列出满足条件的项目
-   * @param query 
-   * @param index 
-   * @param size 
-   */
-  static query(
-    query: object,
-    index: number,
-    size: number,
-  ): Promise<ProjectModel.IProject[]> {
-    log.debug('[ProjectService.query]Input arguments: ', arguments);
-    return Project
-      .find(query)
-      .skip(size * (index - 1))
-      .limit(size - 0)
-      .populate('creator', '_id name head')
-      .populate('members', '_id name head')
-      .populate('admins', '_id name head')
-      .exec()
-      .then(
-        res => Promise.resolve(res)
-      );
-  }
-
-  /**
-   * 查满足条件的项目个数
-   * @param query 
-   */
-  static query_count(
-    query: object,
-  ): Promise<number> {
-    log.debug('[ProjectService.query_count]Input arguments: ', arguments);
-    return Project.count(query).exec();
-  }
-
-  /**
    * 获取指定的项目
    * @param userId 
    * @param projId 
@@ -124,21 +85,22 @@ class ProjectService {
     projId: string
   ): Promise<ProjectModel.IProject> {
     log.debug('[ProjectService.get_one]Input arguments: ', arguments);
-    return Project.findOne({
-      _id: projId
-    }).then(
-      (res) => {
-        if (res) {
-          if (res.members.indexOf(userId) !== -1) {
+    return Project
+      .findOne({
+        _id: projId
+      })
+      .populate('creator', '_id name head')
+      .populate('members', '_id name head')
+      .populate('admins', '_id name head')
+      .then(
+        (res) => {
+          if (res) {
             return Promise.resolve(res);
           } else {
-            return Promise.reject(CODE.NO_AUTH_TO_ACCESS_PROJECT);
+            return Promise.reject(CODE.PROJECT_NOT_EXIST);
           }
-        } else {
-          return Promise.reject(CODE.PROJECT_NOT_EXIST);
-        }
-      }
-    )
+        },
+      );
   }
 
   /**
