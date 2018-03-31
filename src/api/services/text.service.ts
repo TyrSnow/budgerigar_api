@@ -115,6 +115,72 @@ class TextService {
       }
     )
   }
+
+  /**
+   * 列出指定id的文本
+   * @param ids 
+   */
+  static list_by_ids(
+    ids: Array<string>
+  ): Promise<Array<TextModel.IText>> {
+    log.debug('[TextService.list_by_ids]Input arguments: ', arguments);
+    return Text.find({
+      _id: {
+        $in: ids,
+      },
+    }).exec();
+  }
+  
+  /**
+   * 录入翻译
+   * @param textId 
+   * @param lang 
+   * @param text 
+   */
+  static add_translate(
+    textId: string,
+    lang: string,
+    text: string,
+  ): Promise<boolean> {
+    log.debug('[TextService.add_translate]Input arguments: ', arguments);
+    return Text.findOneAndUpdate({
+      _id: textId,
+      'translates.lang': lang,
+    }, {
+      'translates.$.text': text,
+    }).then(
+      (textDoc) => {
+        if (textDoc) {
+          return Promise.resolve(true);
+        }
+        return Text.findOneAndUpdate({
+          _id: textId,
+        }, {
+          $addToSet: {
+            translates: {
+              lang,
+              text,
+            },
+          },
+        }).then(
+          (textDoc) => {
+            if (textDoc) {
+              return Promise.resolve(true);
+            }
+            return Promise.reject(CODE.DOC_NOT_EXIST);
+          }
+        );
+      }
+    );
+  }
+
+  static batch_translates(
+    textId: string,
+    translates: Array<TextModel.ITranslate>,
+  ): Promise<boolean> {
+    return Promise.resolve(true);
+  }
+
 }
 
 export default TextService;

@@ -3,6 +3,8 @@ import { PackageModel } from '../models/Package.d';
 import Package from '../models/Package.model';
 import CODE from '../constants/Code.enum';
 import mask_object from '../tools/maskObject';
+import { TextModel } from '../models/Text';
+import subObject from '../tools/subObject';
 let log = log4js.getLogger('default');
 
 class PackageService {
@@ -107,7 +109,7 @@ class PackageService {
     log.debug('[PackageService.update_package_template]Input arguments: ', arguments);
     return Package.findOneAndUpdate({
       _id: package_id,
-    }, mask_object(template, ['head', 'line', 'foot'])).then(
+    }, subObject('template', template)).then(
       (res) => {
         if (res) {
           return Promise.resolve(true);
@@ -141,6 +143,23 @@ class PackageService {
         return Promise.reject(CODE.PACKAGE_NOT_EXIST);
       }
     );
+  }
+
+  static list_package_text(
+    package_id,
+  ): Promise<Array<TextModel.IText>> {
+    log.debug('[PackageService.list_package_text]Input arguments: ', arguments);
+    return Package
+      .findOne({
+        _id: package_id,
+      }, 'texts')
+      .populate('texts')
+      .then((pack) => {
+        if (pack) {
+          return Promise.resolve(<TextModel.IText[]>pack.texts);
+        }
+        return Promise.reject(CODE.PACKAGE_NOT_EXIST);
+      });
   }
 
   /**

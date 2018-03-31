@@ -22,6 +22,13 @@ function SUCCESS(req, res, prefix) {
   }
 }
 
+function TEXT(req, res, prefix) {
+  return (data: string) => {
+    res.send(data);
+    log.info(prefix, 'Success');
+  }
+}
+
 function ERROR(req, res, prefix) {
   return (err) => {
     if (err instanceof Error) {
@@ -36,4 +43,4 @@ function ERROR(req, res, prefix) {
   }
 }
 
-export { SUCCESS, LIST, ERROR };
+export { SUCCESS, LIST, TEXT, ERROR };

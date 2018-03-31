@@ -81,7 +81,6 @@ class ProjectService {
    * @param projId 
    */
   static get_one(
-    userId: string,
     projId: string
   ): Promise<ProjectModel.IProject> {
     log.debug('[ProjectService.get_one]Input arguments: ', arguments);
@@ -166,6 +165,32 @@ class ProjectService {
       }
       return Promise.resolve();
     });
+  }
+
+  /**
+   * 添加一个关键词
+   * @param projectId 
+   * @param keywordId 
+   */
+  static add_keyword(
+    projectId: string,
+    keywordId: string,
+  ): Promise<boolean> {
+    log.debug('[ProjectService.add_keyword]Input arguments: ', arguments);
+    return Project.findOneAndUpdate({
+      _id: projectId,
+    }, {
+      $addToSet: {
+        keywords: keywordId,
+      },
+    }).then(
+      (proj) => {
+        if (proj) {
+          return Promise.resolve(true);
+        }
+        return Promise.reject(CODE.PACKAGE_NOT_EXIST);
+      },
+    );
   }
 }
 

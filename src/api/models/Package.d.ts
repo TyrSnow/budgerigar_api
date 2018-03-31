@@ -5,6 +5,8 @@ declare namespace PackageModel {
   interface ITemplate {
     head: string
     line: string
+    join: string
+    header?: object
     foot: string
   }
   interface IPackage extends Document {
@@ -13,6 +15,6 @@ declare namespace PackageModel {
     project_id: string
     languages: Array<string>
     template: ITemplate
-    texts: Array<string>
+    texts: Array<string> | Array<TextModel.IText>
   }
 }

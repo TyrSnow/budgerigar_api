@@ -6,9 +6,33 @@ import { SUCCESS, LIST, ERROR } from '../tools/response';
 
 import ProjectService from '../services/project.service';
 import schemas from '../schemas/project.schemas';
+import keywordSchemas from '../schemas/keyword.schemas';
+import CODE from '../constants/Code.enum';
+import TextService from '../services/text.service';
 
 class ProjectCtrl {
   static router = Router();
+
+  @router('/:projectId/keywords', 'post')
+  @validator(keywordSchemas.create)
+  static add_keyword(req, res) {
+    const { projectId } = req.params;
+    const { text, translates } = req.body;
+
+    TextService.get_text_key(text, projectId).then(
+      (id) => {
+        return TextService.create(text, id, projectId, translates);
+      },
+    ).then(
+      (textDoc) => {
+        return ProjectService.add_keyword(projectId, textDoc._id);
+      },
+    ).then(
+      SUCCESS(req, res, '[ProjectCtrl.create]')
+    ).catch(
+      ERROR(req, res, '[ProjectCtrl.create]')
+    );
+  }
 
   @router('/', 'post')
   @validator(schemas.create)
@@ -20,7 +44,26 @@ class ProjectCtrl {
       SUCCESS(req, res, '[ProjectCtrl.create]')
     ).catch(
       ERROR(req, res, '[ProjectCtrl.create]')
-    )
+    );
+  }
+
+  @router('/:projectId/keywords', 'get')
+  static list_project_keywords(req, res) {
+    let { projectId } = req.params;
+
+    ProjectService.get_one(projectId).then(
+      (proj) => {
+        if (proj) {
+          let { keywords } = proj;
+          return TextService.list_by_ids(keywords);
+        }
+        return Promise.reject(CODE.PROJECT_NOT_EXIST);
+      }
+    ).then(
+      SUCCESS(req, res, '[ProjectCtrl.list_project_keywords]')
+    ).catch(
+      ERROR(req, res, '[ProjectCtrl.list_project_keywords]')
+    );
   }
 
   @router('/:projId', 'get')
@@ -28,11 +71,11 @@ class ProjectCtrl {
     let { _id } = req.user;
     let { projId } = req.params;
 
-    ProjectService.get_one(_id, projId).then(
-      SUCCESS(req, res, '[DocCtrl.get_one_doc]')
+    ProjectService.get_one(projId).then(
+      SUCCESS(req, res, '[ProjectCtrl.get_one]'),
     ).catch(
-      ERROR(req, res, '[DocCtrl.get_one_doc]')
-    )
+      ERROR(req, res, '[ProjectCtrl.get_one]'),
+    );
   }
 
   @router('/', 'get')
@@ -51,7 +94,7 @@ class ProjectCtrl {
               current: current,
               size: size,
               total: count
-            }
+            },
           });
         } else {
           return ProjectService.list(id, current, size).then(
@@ -64,8 +107,8 @@ class ProjectCtrl {
                   total: count
                 }
               });
-            }
-          )
+            },
+          );
         }
       }
     ).then(

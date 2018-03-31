@@ -24,6 +24,8 @@ const schema = new Schema({
     head: String,
     line: String,
     foot: String,
+    join: String,
+    header: Object,
   },
   texts: [{
     type: Schema.Types.ObjectId,

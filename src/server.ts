@@ -49,7 +49,7 @@ app.use(function (err, req, res, next) {
     });
   }
 
-  error.error(JSON.stringify(err));
+  error.error(err);
   res.status(500).send({
     message: 'Unrecognized Error',
   });
