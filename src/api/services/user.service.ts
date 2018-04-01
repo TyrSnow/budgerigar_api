@@ -8,6 +8,7 @@ import {
 import { UserModel } from '../models/User';
 import CODE from '../constants/Code.enum';
 import { Regs } from '../constants/Reg.enum';
+import mask_object from '../tools/maskObject';
 
 let log = log4js.getLogger('default');
 class UserSrv {
@@ -234,16 +235,41 @@ class UserSrv {
     return User.findOneAndUpdate({
       _id: user._id
     }, {
-        password,
-      }).then(
-        (_user) => {
-          if (_user) {
-            return Promise.resolve();
-          } else {
-            return Promise.reject(CODE.USER_NOT_EXIST);
+      password,
+    }).then(
+      (_user) => {
+        if (_user) {
+          return Promise.resolve();
+        } else {
+          return Promise.reject(CODE.USER_NOT_EXIST);
+        }
+      }
+    );
+  }
+
+  static update_user_profile(
+    user_id: string,
+    user: UserModel.IUser,
+  ): Promise<any> {
+    log.debug('[UserService.update_user_profile]Input arguments: ', arguments);
+    return User.findOneAndUpdate({
+      _id: user_id,
+    }, mask_object(user, ['head'])).then(
+      (effected) => {
+        if (effected) {
+          return Promise.resolve(true);
+        }
+        return Promise.reject(CODE.USER_NOT_EXIST);
+      },
+      (err) => {
+        if (err.code === 11000) {
+          if (err.errmsg.indexOf('name') !== -1) {
+            return Promise.reject(CODE.DUMPLICATE_NAME);
           }
         }
-      );
+        return Promise.reject(err);
+      }
+    );
   }
 }
 

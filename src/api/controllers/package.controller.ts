@@ -127,11 +127,7 @@ class PackageCtrl {
     const { _id } = req.user;
     const { project } = req.query;
 
-    ProjectService.validMember(project, _id).then(
-      () => {
-        return PackageService.list_project_packages(project);
-      }
-    ).then(
+    PackageService.list_project_packages(project).then(
       SUCCESS(req, res, '[PackageCtrl.list_packages]'),
     ).catch(
       ERROR(req, res, '[PackageCtrl.list_packages]')

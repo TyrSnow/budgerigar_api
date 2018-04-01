@@ -114,6 +114,33 @@ class UserCtrl {
 
   }
 
+  @router('/', 'put')
+  @auth(AUTH_TYPE.USER)
+  static change_profile(req, res) {
+    const profile = req.body;
+    const { _id, remember } = req.user;
+
+    UserSrv.update_user_profile(_id, profile).then(() => {
+      return UserSrv.find_user_by_id(_id);
+    }).then(
+      (_user) => { // 更新token来保证解析不出问题
+        return Promise.resolve(TokenSrv.sign({
+          _id: _user._id,
+          name: _user.name,
+          email: _user.email,
+          phone: _user.phone,
+          head: _user.head,
+          auth: _user.auth,
+          remember: remember,
+        }, remember ? '30d' : '1d'))
+      }
+    ).then(
+      SUCCESS(req, res, '[UserCtrl.change_profile]'),
+    ).catch(
+      ERROR(req, res, '[UserCtrl.change_profile]'),
+    );
+  }
+
   @router('/:userId/block', 'put')
   @auth(AUTH_TYPE.ADMIN)
   static block_user(req, res) {

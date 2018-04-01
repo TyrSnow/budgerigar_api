@@ -2,11 +2,16 @@ import { Document } from 'mongoose'
 import AUTH_TYPE from '../constants/AuthType.enum';
 
 declare namespace UserModel {
+  interface IConfig {
+    defaultLanguage: Array<string>
+  }
+
   interface IUserPassword {
     name: string
     email?: string
     phone?: string
   }
+
   interface IUser extends Document {
     _id: string
     name: string
@@ -21,7 +26,9 @@ declare namespace UserModel {
     block_date?: Date
     delete?: boolean
     delete_date?: Date
+    config?: IConfig
   }
+
   interface IUserInfo {
     _id: string
     name: string

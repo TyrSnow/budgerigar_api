@@ -35,6 +35,9 @@ let model = new Schema({
     phone: String,
   },
   head: String,
+  config: {
+    defaultLanguage: [String],
+  },
   create_date: {
     type: Date,
     default: Date.now,

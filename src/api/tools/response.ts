@@ -4,6 +4,12 @@ import CODE from '../constants/Code.enum';
 
 let log = log4js.getLogger('default');
 
+/**
+ * 请求列表类返回
+ * @param req 
+ * @param res 
+ * @param prefix 
+ */
 function LIST(req, res, prefix) {
   return (data) => {
     res.json(Object.assign({
@@ -12,6 +18,13 @@ function LIST(req, res, prefix) {
     log.info(prefix, 'Success');
   }
 }
+
+/**
+ * 标准返回
+ * @param req 
+ * @param res 
+ * @param prefix 
+ */
 function SUCCESS(req, res, prefix) {
   return (data) => {
     res.json({
@@ -22,6 +35,12 @@ function SUCCESS(req, res, prefix) {
   }
 }
 
+/**
+ * 文本返回，需要自行设置Content-Type
+ * @param req 
+ * @param res 
+ * @param prefix 
+ */
 function TEXT(req, res, prefix) {
   return (data: string) => {
     res.send(data);
@@ -29,6 +48,12 @@ function TEXT(req, res, prefix) {
   }
 }
 
+/**
+ * 返回出错的信息
+ * @param req 
+ * @param res 
+ * @param prefix 
+ */
 function ERROR(req, res, prefix) {
   return (err) => {
     if (err instanceof Error) {
