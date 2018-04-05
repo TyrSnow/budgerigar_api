@@ -10,6 +10,8 @@ import ProjectService from '../services/project.service';
 import schemas from '../schemas/package.schemas';
 import OutputService from '../services/output.service';
 import { TextModel } from '../models/Text';
+import CODE from '../constants/Code.enum';
+import StatisticsService from '../services/statistics.service';
 
 class PackageCtrl {
   static router = Router();
@@ -57,6 +59,19 @@ class PackageCtrl {
     );
   }
 
+  @router('/:package_id', 'put')
+  @validator(schemas.update_info)
+  static update_package_info(req, res) {
+    const { package_id } = req.params;
+    const pack = req.body;
+    
+    PackageService.update_package_info(package_id, pack).then(
+      SUCCESS(req, res, '[PackageCtrl.update_package_info]'),
+    ).catch(
+      ERROR(req, res, '[PackageCtrl.update_package_info]')
+    );
+  }
+
   @router('/:package_id/outputs', 'get')
   static get_package_output(req, res) {
     let { package_id } = req.params;
@@ -74,6 +89,17 @@ class PackageCtrl {
       TEXT(req, res, '[PackageCtrl.get_package_texts]'),
     ).catch(
       ERROR(req, res, '[PackageCtrl.get_package_texts]'),
+    );
+  }
+
+  @router('/:package_id/texts/stat', 'get')
+  static get_package_text_stat(req, res) {
+    const { package_id } = req.params;
+
+    StatisticsService.stat_package_text(package_id).then(
+      SUCCESS(req, res, '[PackageCtrl.get_package_text_stat]'),
+    ).catch(
+      ERROR(req, res, '[PackageCtrl.get_package_text_stat]')
     );
   }
 
@@ -99,9 +125,9 @@ class PackageCtrl {
     ).then(
       () => PackageService.get_package(package_id),
     ).then(
-      SUCCESS(req, res, '[PackageCtrl.add_text]'),
+      SUCCESS(req, res, '[PackageCtrl.get_package]'),
     ).catch(
-      ERROR(req, res, '[PackageCtrl.add_text]')
+      ERROR(req, res, '[PackageCtrl.get_package]')
     );
   }
 
@@ -109,11 +135,11 @@ class PackageCtrl {
   @validator(schemas.create)
   static create_package(req, res) {
     const { _id } = req.user;
-    const { project, name, desc } = req.body;
+    const { project, name, desc, languages } = req.body;
 
     ProjectService.validMember(project, _id).then(
       () => {
-        return PackageService.create(project, _id, name, desc);
+        return PackageService.create(project, _id, name, desc, languages);
       }
     ).then(
       SUCCESS(req, res, '[PackageCtrl.create]'),
@@ -133,6 +159,25 @@ class PackageCtrl {
       ERROR(req, res, '[PackageCtrl.list_packages]')
     );
   }
+
+  @router('/:package_id', 'delete')
+  static delete_package(req, res) {
+    const { package_id } = req.params;
+    const { _id } = req.user;
+
+    PackageService.get_project_id(package_id).then(
+      (project_id) => ProjectService.validAdmin(project_id, _id).catch(err => {
+        return Promise.reject(CODE.NEED_ADMIN);
+      }),
+    ).then(
+      () => PackageService.delete_package(package_id, _id),
+    ).then(
+      SUCCESS(req, res, '[PackageCtrl.delete_package]'),
+    ).catch(
+      ERROR(req, res, '[PackageCtrl.delete_package]')
+    );
+  }
+
 }
 
 export default PackageCtrl;

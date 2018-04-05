@@ -9,6 +9,7 @@ import schemas from '../schemas/project.schemas';
 import keywordSchemas from '../schemas/keyword.schemas';
 import CODE from '../constants/Code.enum';
 import TextService from '../services/text.service';
+import StatisticsService from '../services/statistics.service';
 
 class ProjectCtrl {
   static router = Router();
@@ -66,6 +67,53 @@ class ProjectCtrl {
     );
   }
 
+  @router('/:projId/texts/stat', 'get')
+  static get_project_texts_stat(req, res) {
+    const { projId } = req.params;
+
+    StatisticsService.stat_project_text(projId).then(
+      SUCCESS(req, res, '[ProjectCtrl.get_project_texts_stat]')
+    ).catch(
+      ERROR(req, res, '[ProjectCtrl.get_project_texts_stat]')
+    );
+  }
+
+  @router('/:projId/texts', 'get')
+  static get_project_texts(req, res) {
+    const { projId } = req.params;
+    const { current = 1, size = 10 } = req.query;
+
+    TextService.count_project_texts(projId).then(
+      count => {
+        let skip = (current - 1) * size;
+        if (skip < count) {
+          return TextService.list_project_texts(projId, skip, parseInt(size)).then((list) => {
+            return Promise.resolve({
+              list,
+              page: {
+                current: current,
+                size: size,
+                total: count
+              },
+            })
+          });
+        }
+        return Promise.resolve({
+          list: [],
+          page: {
+            current: current,
+            size: size,
+            total: count
+          },
+        });
+      }
+    ).then(
+      LIST(req, res, '[ProjectCtrl.get_project_texts]'),
+    ).catch(
+      ERROR(req, res, '[ProjectCtrl.get_project_texts]'),
+    );
+  }
+
   @router('/:projId', 'get')
   static get_one(req, res) {
     let { _id } = req.user;
@@ -112,10 +160,10 @@ class ProjectCtrl {
         }
       }
     ).then(
-      LIST(req, res, '[DocCtrl.query_docs]')
+      LIST(req, res, '[ProjectCtrl.query_docs]'),
     ).catch(
-      ERROR(req, res, '[DocCtrl.query_docs]')
-    )
+      ERROR(req, res, '[ProjectCtrl.query_docs]'),
+    );
   }
 
   @router('/:projId', 'delete')

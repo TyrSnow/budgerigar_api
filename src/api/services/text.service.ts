@@ -181,6 +181,31 @@ class TextService {
     return Promise.resolve(true);
   }
 
+  static count_project_texts(
+    project_id,
+  ): Promise<number> {
+    log.debug('[TextService.count_project_texts]Input arguments: ', arguments);
+    return Text.count({
+      project_id,
+      keyword: {
+        $exists: false,
+      },
+    }).exec();
+  }
+
+  static list_project_texts(
+    project_id: string,
+    skip: number,
+    size: number,
+  ): Promise<Array<TextModel.IText>> {
+    log.debug('[TextService.list_project_texts]Input arguments: ', arguments);
+    return Text.find({
+      project_id,
+      keyword: {
+        $exists: false,
+      },
+    }).skip(skip).limit(size).exec();
+  }
 }
 
 export default TextService;

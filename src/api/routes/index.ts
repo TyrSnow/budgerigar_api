@@ -23,7 +23,7 @@ routes.use('/uploads', requestUser, UploadCtrl.router);
 
 routes.use((req, res) => {
   res.status(404).json({
-    note: 'Can not find resources.',
+    message: 'Can not find resources.',
   });
 });
 

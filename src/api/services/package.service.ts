@@ -20,17 +20,19 @@ class PackageService {
     user_id: string,
     name: string,
     desc: string,
+    languages: Array<string>,
   ): Promise<PackageModel.IPackage> {
     log.debug('[PackageService.create]Input arguments: ', arguments);
     let pack = new Package({
       name,
       desc,
       project_id,
+      languages,
     });
     
     return pack.save().then(
       (pack) => {
-        return Promise.resolve(pack);
+        return Promise.resolve(pack.populate('languages', 'code'));
       },
       (err) => {
         if (err.code === 11000) {
@@ -40,6 +42,28 @@ class PackageService {
         }
         return Promise.reject(err);
       }
+    );
+  }
+
+  /**
+   * 删除一个语言包
+   * @param package_id 
+   * @param user_id 
+   */
+  static delete_package(
+    package_id: string,
+    user_id: string,
+  ): Promise<boolean> {
+    log.debug('[PackageService.delete_package]Input arguments: ', arguments);
+    return Package.findOneAndRemove({
+      _id: package_id,
+    }).then(
+      pack => {
+        if (pack) {
+          return Promise.resolve(true);
+        }
+        return Promise.reject(CODE.PACKAGE_NOT_EXIST);
+      },
     );
   }
 
@@ -55,8 +79,10 @@ class PackageService {
       project_id,
     }, {
       name: 1,
-      project_id: 1,
-    }).exec();
+      languages: 1,
+      desc: 1,
+      texts: 1,
+    }).populate('languages', 'code').exec();
   }
 
   /**
@@ -72,13 +98,14 @@ class PackageService {
         _id: package_id,
       })
       .populate('texts', 'text key translates')
+      .populate('languages', 'code name desc')
       .exec();
   }
 
   /**
    * 更新一个语言包的资料
    * @param package_id 
-   * @param pack 只有其中的name和desc字段会生效
+   * @param pack 只有其中的name、desc、languages字段会生效
    */
   static update_package_info(
     package_id: string,
@@ -87,14 +114,22 @@ class PackageService {
     log.debug('[PackageService.update_package_info]Input arguments: ', arguments);
     return Package.findOneAndUpdate({
       _id: package_id,
-    }, mask_object(pack, ['name', 'desc'])).then(
+    }, mask_object(pack, ['name', 'desc', 'languages'])).then(
       (res) => {
         if (res) {
           return Promise.resolve(true);
         }
         return Promise.reject(CODE.PACKAGE_NOT_EXIST);
-      }
-    )
+      },
+      (err) => {
+        if (err.code === 11000) {
+          if (err.errmsg.indexOf('project_id_1_name_1') !== -1) {
+            return Promise.reject(CODE.DUMPLICAT_PACKAGE_NAME);
+          }
+        }
+        return Promise.reject(err);
+      },
+    );
   }
 
   /**
@@ -207,6 +242,7 @@ class PackageService {
       }
     )
   }
+
 }
 
 export default PackageService;

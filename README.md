@@ -2,6 +2,7 @@
 [![Build Status](https://travis-ci.org/TyrSnow/budgerigar_api.svg?branch=develop)](https://travis-ci.org/TyrSnow/budgerigar_api)
 
 用于管理语言包的系统服务器
+[在线DEMO](https://budgerigar.ty1990.cn)
 ## 1. 名词解释
 1. 项目 用于分隔的最小单位，一般情况下，我们认为前端、后台、app应该共享同一个项目
 1. 语言包 用于输出的单位，一个项目可以拥有多个语言包，语言包默认是json格式，也可以使用自定义的模板来渲染键值对

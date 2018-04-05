@@ -21,6 +21,7 @@ const CODE = {
   DUMPLICAT_AUTHORIZE: C(20003, '您已在其他地方登陆', 401),
   NO_AUTH_TO_ACCESS_RESOURCE: C(20004, '您没有访问它的权限'),
   ACCOUNT_HAS_BLOCKED: C(20005, '您的账号已经被禁用'),
+  NEED_ADMIN: C(20006, '需要管理员才能进行这项操作'),
 
   // 登陆注册
   WRONG_AUTHORIZE: C(21000, '用户名或密码错误'),

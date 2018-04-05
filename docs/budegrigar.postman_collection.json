@@ -195,6 +195,31 @@
 						"description": ""
 					},
 					"response": []
+				},
+				{
+					"name": "修改资料",
+					"request": {
+						"url": "{{host}}:{{port}}/api/users",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"tianyu\"\n}"
+						},
+						"description": "用户名不可以修改"
+					},
+					"response": []
 				}
 			]
 		},
@@ -227,7 +252,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"user\": \"root\",\n\t\"password\": \"456123\",\n\t\"remember\": true\n}"
+							"raw": "{\n\t\"user\": \"tianyu123\",\n\t\"password\": \"456123\",\n\t\"remember\": true\n}"
 						},
 						"description": ""
 					},
@@ -328,7 +353,7 @@
 						{
 							"name": "新建关键词",
 							"request": {
-								"url": "{{host}}:{{port}}/api/projects/5aa12ed18ce30666908338b3/keywords",
+								"url": "{{host}}:{{port}}/api/projects/5aa908dd399a7cb4f0f4d179/keywords",
 								"method": "POST",
 								"header": [
 									{
@@ -353,7 +378,7 @@
 						{
 							"name": "列出项目下的关键词",
 							"request": {
-								"url": "{{host}}:{{port}}/api/projects/5aa12ed18ce30666908338b3/keywords",
+								"url": "{{host}}:{{port}}/api/projects/5aa908dd399a7cb4f0f4d179/keywords",
 								"method": "GET",
 								"header": [
 									{
@@ -452,6 +477,83 @@
 					"name": "获取项目详情",
 					"request": {
 						"url": "{{host}}:{{port}}/api/Projects/5aa908dd399a7cb4f0f4d179",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"测试项目3\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "获得项目语句翻译情况统计",
+					"request": {
+						"url": "{{host}}:{{port}}/api/Projects/5aa908dd399a7cb4f0f4d179/texts/stat",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"测试项目3\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "获得项目下的语句",
+					"request": {
+						"url": {
+							"raw": "{{host}}:{{port}}/api/Projects/5aa908dd399a7cb4f0f4d179/texts?current=1&size=10",
+							"host": [
+								"{{host}}"
+							],
+							"port": "{{port}}",
+							"path": [
+								"api",
+								"Projects",
+								"5aa908dd399a7cb4f0f4d179",
+								"texts"
+							],
+							"query": [
+								{
+									"key": "current",
+									"value": "1",
+									"equals": true,
+									"description": ""
+								},
+								{
+									"key": "size",
+									"value": "10",
+									"equals": true,
+									"description": ""
+								}
+							],
+							"variable": []
+						},
 						"method": "GET",
 						"header": [
 							{
@@ -602,11 +704,6 @@
 			]
 		},
 		{
-			"name": "API",
-			"description": "",
-			"item": []
-		},
-		{
 			"name": "Language",
 			"description": "",
 			"item": [
@@ -688,7 +785,7 @@
 				{
 					"name": "删除语言",
 					"request": {
-						"url": "{{host}}:{{port}}/api/languages/5aa7d4e80117d04368b455f8",
+						"url": "{{host}}:{{port}}/api/languages/5aa7edfc7622774198fd5c06",
 						"method": "DELETE",
 						"header": [
 							{
@@ -979,6 +1076,88 @@
 								"description": ""
 							},
 							"response": []
+						},
+						{
+							"name": "列出语言包中所的语句",
+							"request": {
+								"url": "{{host}}:{{port}}/api/packages/5ab7883caac62c223039731d/texts",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"text\": \"这句话也是测试用的3\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "统计语言包语句",
+							"request": {
+								"url": "{{host}}:{{port}}/api/packages/5ac613ef54fb1674a8343d7f/texts/stat",
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"text\": \"这句话也是测试用的3\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "Template",
+					"description": "",
+					"item": [
+						{
+							"name": "保存语言包模板",
+							"request": {
+								"url": "{{host}}:{{port}}/api/packages/5ab7883caac62c223039731d/template",
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n\t\"join\": \",\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
 						}
 					],
 					"_postman_isSubFolder": true
@@ -1002,7 +1181,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"测试项目13\",\n\t\"project\": \"5aa908dd399a7cb4f0f4d179\"\n}"
+							"raw": "{\n\t\"name\": \"服务端语言包-字典\",\n\t\"project\": \"5aa908dd399a7cb4f0f4d179\"\n}"
 						},
 						"description": ""
 					},
@@ -1055,20 +1234,97 @@
 				{
 					"name": "获得语言包详情",
 					"request": {
+						"url": "{{host}}:{{port}}/api/packages/5ac613ef54fb1674a8343d7f",
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"name\": \"测试项目13\",\n\t\"project\": \"5aa908dd399a7cb4f0f4d179\"\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "更新语言包资料",
+					"request": {
+						"url": "{{host}}:{{port}}/api/packages/5ac613ef54fb1674a8343d7f",
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"desc\": \"测试用的\",\n\t\"languages\": [\"5aa7efe2e63d166de4ef0e02\"]\n}"
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "删除语言包",
+					"request": {
+						"url": "{{host}}:{{port}}/api/packages/5ab7883caac62c223039731d",
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"description": ""
+							},
+							{
+								"key": "authorization",
+								"value": "Bearer {{token}}",
+								"description": ""
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"description": ""
+					},
+					"response": []
+				},
+				{
+					"name": "根据语言包配置渲染出结果",
+					"request": {
 						"url": {
-							"raw": "{{host}}:{{port}}/api/packages?project=5aa908dd399a7cb4f0f4d179",
+							"raw": "{{host}}:{{port}}/api/packages/5ab7883caac62c223039731d/outputs?lang=zh-cn",
 							"host": [
 								"{{host}}"
 							],
 							"port": "{{port}}",
 							"path": [
 								"api",
-								"packages"
+								"packages",
+								"5ab7883caac62c223039731d",
+								"outputs"
 							],
 							"query": [
 								{
-									"key": "project",
-									"value": "5aa908dd399a7cb4f0f4d179",
+									"key": "lang",
+									"value": "zh-cn",
 									"equals": true,
 									"description": ""
 								}
@@ -1095,32 +1351,18 @@
 						"description": ""
 					},
 					"response": []
-				},
+				}
+			]
+		},
+		{
+			"name": "Text",
+			"description": "",
+			"item": [
 				{
-					"name": "根据语言包配置渲染出结果",
+					"name": "添加翻译",
 					"request": {
-						"url": {
-							"raw": "{{host}}:{{port}}/api/packages/5aa908dd399a7cb4f0f4d179?lang=zh-CN",
-							"host": [
-								"{{host}}"
-							],
-							"port": "{{port}}",
-							"path": [
-								"api",
-								"packages",
-								"5aa908dd399a7cb4f0f4d179"
-							],
-							"query": [
-								{
-									"key": "lang",
-									"value": "zh-CN",
-									"equals": true,
-									"description": ""
-								}
-							],
-							"variable": []
-						},
-						"method": "GET",
+						"url": "{{host}}:{{port}}/api/texts/5ab78a9116926947c4e7dcb9/translates",
+						"method": "PUT",
 						"header": [
 							{
 								"key": "Content-Type",
@@ -1135,7 +1377,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n\t\"name\": \"测试项目13\",\n\t\"project\": \"5aa908dd399a7cb4f0f4d179\"\n}"
+							"raw": "{\n\t\"lang\": \"en\",\n\t\"text\": \"This is also a test sentence.\"\n}"
 						},
 						"description": ""
 					},
