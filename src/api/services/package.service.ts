@@ -5,6 +5,7 @@ import CODE from '../constants/Code.enum';
 import mask_object from '../tools/maskObject';
 import { TextModel } from '../models/Text';
 import subObject from '../tools/subObject';
+import { LanguageModel } from '../models/Language';
 let log = log4js.getLogger('default');
 
 class PackageService {
@@ -32,7 +33,7 @@ class PackageService {
     
     return pack.save().then(
       (pack) => {
-        return Promise.resolve(pack.populate('languages', 'code'));
+        return pack.populate('languages', 'code').execPopulate();
       },
       (err) => {
         if (err.code === 11000) {
@@ -85,6 +86,34 @@ class PackageService {
     }).populate('languages', 'code').exec();
   }
 
+  static collectLanguages(
+    packs: Array<PackageModel.IPackage>,
+  ): Array<LanguageModel.ILanguage> {
+    let langs: Set<LanguageModel.ILanguage> = new Set();
+    packs.map((pack) => {
+      pack.languages.map((lang) => {
+        langs.add(<LanguageModel.ILanguage>lang);
+      });
+    });
+    return Array.from(langs);
+  }
+
+  static list_project_languages(
+    project_id: string,
+  ): Promise<Array<LanguageModel.ILanguage>> {
+    log.debug('[PackageService.list_project_languages]Input arguments: ', arguments);
+    return Package.find({
+      project_id,
+    }, {
+      languages: 1,
+    }).populate('languages', 'code name').then(
+      (packs) => {
+        let languages = PackageService.collectLanguages(packs);
+        return Promise.resolve(languages);
+      },
+    );
+  }
+
   /**
    * 获得一个语言包详情
    * @param package_id 
@@ -110,14 +139,16 @@ class PackageService {
   static update_package_info(
     package_id: string,
     pack: object,
-  ): Promise<boolean> {
+  ): Promise<PackageModel.IPackage> {
     log.debug('[PackageService.update_package_info]Input arguments: ', arguments);
     return Package.findOneAndUpdate({
       _id: package_id,
-    }, mask_object(pack, ['name', 'desc', 'languages'])).then(
+    }, mask_object(pack, ['name', 'desc', 'languages']), {
+      new: true,
+    }).then(
       (res) => {
         if (res) {
-          return Promise.resolve(true);
+          return res.populate('languages', 'code').execPopulate();
         }
         return Promise.reject(CODE.PACKAGE_NOT_EXIST);
       },

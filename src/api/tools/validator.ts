@@ -15,7 +15,7 @@ export default function validator(validator) {
           error.debug('[Request]Error captured with body: ', req.body);
           
           return res.status(400).json({
-              note: 'Invalid params.'
+            note: 'Invalid params.'
           });
         }
         orignalProperty(req, res);

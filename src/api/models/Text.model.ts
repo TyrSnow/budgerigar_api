@@ -16,6 +16,9 @@ const schema = new Schema({
   key: {
     type: String,
   },
+  keyword: {
+    type: Boolean,
+  },
   translates: [{
     text: String,
     lang: String,

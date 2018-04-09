@@ -19,6 +19,7 @@ class TextService {
     key: string,
     project_id: string,
     translates?: Array<TextModel.ITranslate>,
+    keyword?: boolean,
   ): Promise<TextModel.IText> {
     log.debug('[TextService.create]Input arguments: ', arguments);
     const text_doc = new Text({
@@ -26,6 +27,7 @@ class TextService {
       key,
       project_id,
       translates,
+      keyword,
     });
     
     return text_doc.save().then(

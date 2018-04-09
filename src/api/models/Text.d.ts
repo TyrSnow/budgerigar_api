@@ -10,6 +10,7 @@ declare namespace TextModel {
     key: string
     text: string
     project_id: string
+    keyword: boolean
     translates: [ITranslate]
   }
 }

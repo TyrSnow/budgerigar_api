@@ -10,6 +10,7 @@ import keywordSchemas from '../schemas/keyword.schemas';
 import CODE from '../constants/Code.enum';
 import TextService from '../services/text.service';
 import StatisticsService from '../services/statistics.service';
+import PackageService from '../services/package.service';
 
 class ProjectCtrl {
   static router = Router();
@@ -22,7 +23,7 @@ class ProjectCtrl {
 
     TextService.get_text_key(text, projectId).then(
       (id) => {
-        return TextService.create(text, id, projectId, translates);
+        return TextService.create(text, id, projectId, translates, true);
       },
     ).then(
       (textDoc) => {
@@ -109,6 +110,16 @@ class ProjectCtrl {
       }
     ).then(
       LIST(req, res, '[ProjectCtrl.get_project_texts]'),
+    ).catch(
+      ERROR(req, res, '[ProjectCtrl.get_project_texts]'),
+    );
+  }
+
+  @router('/:projId/languages', 'get')
+  static get_project_languages(req, res) {
+    const { projId } = req.params;
+    PackageService.list_project_languages(projId).then(
+      SUCCESS(req, res, '[ProjectCtrl.get_project_texts]'),
     ).catch(
       ERROR(req, res, '[ProjectCtrl.get_project_texts]'),
     );
