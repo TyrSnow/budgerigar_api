@@ -12,10 +12,23 @@ describe('Test regist', () => {
     request = supertest(app);
   });
 
-  it('should return 401 before login', (done) => {
+  it('should return 400 when post nothing', (done) => {
     request
-      .post('/api/projects')
-      .expect(401)
+      .post('/api/users')
+      .expect(400)
+      .end((err, res) => {
+        expect(err).not.exist;
+        done(err);
+      });
+  });
+
+  it('should return 400 when password not exist', (done) => {
+    request
+      .post('/api/users')
+      .send({
+        name: 'tianyu',
+      })
+      .expect(400)
       .end((err, res) => {
         expect(err).not.exist;
         done(err);

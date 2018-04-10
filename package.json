@@ -7,7 +7,7 @@
     "startJs": "nodemon build/server.js",
     "start": "npm-run-all -p compileJs startJs",
     "build": "tsc",
-    "test": "nyc mocha -r ./node_modules/ts-node/register -r ./node_modules/source-map-support/register src/**/*.spec.ts",
+    "test": "set NODE_ENV=test&& nyc mocha -r ./node_modules/ts-node/register -r ./node_modules/source-map-support/register src/**/*.spec.ts",
     "test-ci": "nyc npm test && nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "nyc": {
@@ -21,6 +21,7 @@
       "**/*.schema.ts",
       "**/*.model.ts",
       "**/*.enum.ts",
+      "**/server.ts",
       "**/*.js"
     ],
     "reporter": [

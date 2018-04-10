@@ -3,10 +3,18 @@ import * as log4js from 'log4js';
 import * as bodyParser from 'body-parser';
 import * as mongoose from 'mongoose';
 
+import './start';
 // 启动环境
 import routes from './api/routes';
 
 let app = express();
+
+// 配置连接日志
+let logger = log4js.getLogger('default');
+app.use(log4js.connectLogger(logger, {
+  level: 'auto',
+  format: ':method :url',
+}));
 
 // 处理参数
 app.use(bodyParser.json({ limit: '5mb' }));
