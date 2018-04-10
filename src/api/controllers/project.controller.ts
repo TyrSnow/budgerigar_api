@@ -1,8 +1,8 @@
 import { Router } from 'express';
 
-import router from '../tools/router';
-import validator from '../tools/validator';
-import { SUCCESS, LIST, ERROR } from '../tools/response';
+import router from '../core/router';
+import validator from '../core/validator';
+import { SUCCESS, LIST, ERROR } from '../core/response';
 
 import ProjectService from '../services/project.service';
 import schemas from '../schemas/project.schemas';

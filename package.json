@@ -16,11 +16,11 @@
     ],
     "exclude": [
       "**/*.d.ts",
-      "**/*.spec.ts"
+      "**/*.spec.ts",
+      "**/*.js"
     ],
     "reporter": [
       "html",
-      "text-lcov",
       "text-summary"
     ],
     "all": true

@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import router from '../tools/router';
-import validator from '../tools/validator';
+import router from '../core/router';
+import validator from '../core/validator';
 import fuzzy from '../tools/fuzzy';
-import { SUCCESS, LIST, ERROR } from '../tools/response';
+import { SUCCESS, LIST, ERROR } from '../core/response';
 
 import LanguageService from '../services/language.service';
 import schemas from '../schemas/language.schemas';

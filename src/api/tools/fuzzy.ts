@@ -3,6 +3,6 @@
  * @param key 
  */
 export default function fuzzy(key: string): RegExp {
-  let splitKey = key.split(' ');
+  let splitKey = key.split(/\s+/g);
   return new RegExp(splitKey.join('|'));
 }

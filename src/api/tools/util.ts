@@ -23,15 +23,16 @@ function hash_password(name:string, sault:string, pwd:string) {
     return hash.digest('hex');
 }
 
-function valid_password(user: string, sault: string, pwd: string, password: UserModel.IUserPassword) {
+function valid_password(user: string, sault: string, pwd: string, password: UserModel.IUserPassword, name: string) {
     let hashUser = hash_password(user, sault, pwd);
     if (hashUser === password.name) {
         return true;
     }
-    // 手机和email会后期进行绑定，这个时候是不知道原始的用户密码是什么的，所以需要把用name字段hash的结果当作密码
+    // 手机和email会后期进行绑定，这个时候是不知道原始的用户密码是什么的，所以需要把用name字段一起hash
     if (password.phone || password.email) {
-        let secondHash = hash_password(user, sault, password.name);
-        if (secondHash === password.phone || secondHash === password.email) {
+        let nameHash = hash_password(name, sault, pwd);
+        let secondHash = hash_password(user, sault, nameHash);
+        if ((secondHash === password.phone) || (secondHash === password.email)) {
             return true;
         }
     }

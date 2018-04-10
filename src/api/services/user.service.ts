@@ -209,7 +209,7 @@ class UserSrv {
   ): Promise<UserModel.IUser> {
     log.debug('[UserService.valid_password]Input arguments: ', arguments);
     return new Promise((resolve, reject) => {
-      if (valid_password(name, user.sault, pwd, user.password)) {
+      if (valid_password(name, user.sault, pwd, user.password, user.name)) {
         resolve(user);
       } else {
         reject(CODE.PASSWORD_NOT_MATCH);

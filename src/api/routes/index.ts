@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { requestUser } from '../tools/auth';
+import { requestUser } from '../core/auth';
 
 import ProjectCtrl from '../controllers/project.controller';
 import PackageCtrl from '../controllers/package.controller';

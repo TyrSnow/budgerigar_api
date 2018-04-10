@@ -1,9 +1,9 @@
 import { Router } from 'express';
 
-import router from '../tools/router';
-import validator from '../tools/validator';
-import { auth, AUTH_TYPE } from '../tools/auth';
-import { SUCCESS, ERROR, LIST } from '../tools/response';
+import router from '../core/router';
+import validator from '../core/validator';
+import { auth, AUTH_TYPE } from '../core/auth';
+import { SUCCESS, ERROR, LIST } from '../core/response';
 
 import UserSrv from '../services/user.service';
 import TokenSrv from '../services/token.service';

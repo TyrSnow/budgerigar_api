@@ -5,8 +5,8 @@ import * as multer from 'multer';
 
 import config from '../../config/index';
 
-import router from '../tools/router';
-import { SUCCESS, LIST, ERROR } from '../tools/response';
+import router from '../core/router';
+import { SUCCESS, LIST, ERROR } from '../core/response';
 /** 
  * 不同功能的文件会被放在不同的文件夹下
  */

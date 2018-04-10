@@ -3,7 +3,7 @@
  * @param object 
  * @param keys 
  */
-export default function mask_object(object, keys) {
+export default function mask_object(object: Object, keys: Array<string>) {
   let result = {};
   keys.map(key => {
     if (object[key]) {

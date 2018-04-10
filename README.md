@@ -1,5 +1,6 @@
 # budgerigar_api
 [![Build Status](https://travis-ci.org/TyrSnow/budgerigar_api.svg?branch=develop)](https://travis-ci.org/TyrSnow/budgerigar_api)
+[![codecov](https://codecov.io/gh/TyrSnow/budgerigar_api/branch/develop/graph/badge.svg)](https://codecov.io/gh/TyrSnow/budgerigar_api)
 
 用于管理语言包的系统服务器
 [在线DEMO](https://budgerigar.ty1990.cn)
