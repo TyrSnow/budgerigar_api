@@ -9,6 +9,8 @@ addons:
       - sshpass
 install:
   - npm i npminstall && npminstall
+after_install:
+  - npm run test-ci
 script:
   - npm run build
 after_script:
