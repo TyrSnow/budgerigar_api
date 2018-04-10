@@ -1,4 +1,9 @@
 node_modules
+
 logs
 build
 uploads
+
+coverage
+.nyc_output
+coverage.lcov
