@@ -17,6 +17,10 @@
     "exclude": [
       "**/*.d.ts",
       "**/*.spec.ts",
+      "**/*.schemas.ts",
+      "**/*.schema.ts",
+      "**/*.model.ts",
+      "**/*.enum.ts",
       "**/*.js"
     ],
     "reporter": [
