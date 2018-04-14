@@ -7,28 +7,26 @@ import app from '../../app';
 
 let request;
 
-describe('Test regist', () => {
+describe('Test create', () => {
   before(() => {
     request = supertest(app);
   });
 
-  it('should return 400 when post nothing', (done) => {
+  it('should return 401 when no auth header', (done) => {
     request
-      .post('/api/users')
-      .expect(400)
+      .post('/api/projects')
+      .set('authorization', '')
+      .expect(401)
       .end((err, res) => {
         expect(err).not.exist;
         done(err);
       });
   });
 
-  it('should return 400 when password not exist', (done) => {
+  it('should return 401 when post nothing', (done) => {
     request
-      .post('/api/users')
-      .send({
-        name: 'tianyu',
-      })
-      .expect(400)
+      .post('/api/projects')
+      .expect(401)
       .end((err, res) => {
         expect(err).not.exist;
         done(err);

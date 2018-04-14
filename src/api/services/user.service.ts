@@ -37,7 +37,7 @@ class UserSrv {
           _id: _user._id,
           name: _user.name,
           auth: _user.auth,
-        })
+        });
       },
       (err) => {
         if (err.code === 11000) {

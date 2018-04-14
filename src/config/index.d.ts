@@ -6,7 +6,7 @@ interface IDBConfig{
 interface ILogConfig {
     appenders: any
     categories: any
-    replaceConsole: boolean
+    replaceConsole?: boolean
 }
 
 interface IUploadConfig {

@@ -38,12 +38,12 @@ class UserCtrl {
           phone: _user.phone,
           head: _user.head,
           auth: _user.auth,
-        }, '1d'))
+        }, '1d'));
       }
     ).then(
-      SUCCESS(req, res, '[UserCtrl.regist]')
+      SUCCESS(req, res, '[UserCtrl.regist]'),
     ).catch(
-      ERROR(req, res, '[UserCtrl.regist]')
+      ERROR(req, res, '[UserCtrl.regist]'),
     );
   }
 

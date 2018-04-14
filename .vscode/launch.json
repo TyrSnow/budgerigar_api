@@ -29,6 +29,30 @@
       "port": 5858,
       "sourceMaps": true,
       "outFiles": ["./build/**/*.js"]
+    },
+    {
+      "name": "test",
+      "type": "node",
+      "request": "launch",
+      "program": "${workspaceRoot}/node_modules/nyc/bin/nyc.js",
+      "args": [
+        "mocha",
+        "-r ./node_modules/ts-node/register",
+        "-r ./node_modules/source-map-support/register",
+        "src/**/*.spec.ts" // 入口文件
+      ],
+      "cwd": "${workspaceRoot}",
+      "protocol": "inspector",
+      "stopOnEntry": false,
+      "runtimeExecutable": null,
+      "runtimeArgs": [
+        "--nolazy",
+        "--es_staging",
+      ],
+      "env": {
+        "NODE_ENV": "test"
+      },
+      "console": "internalConsole",
     }
   ]
 }
