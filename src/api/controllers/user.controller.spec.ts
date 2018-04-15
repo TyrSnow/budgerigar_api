@@ -35,22 +35,39 @@ describe('Test regist', () => {
       });
   });
 
-  it('should return token when regist ready', (done) => {
+  // it('should return token when regist ready', (done) => {
+  //   request
+  //     .post('/api/users')
+  //     .send({
+  //       name: 'tianyu',
+  //       password: '123456',
+  //     })
+  //     .expect(200)
+  //     .end((err, res) => {
+  //       console.log(res);
+  //       expect(err).not.exist;
+  //       done(err);
+  //     });
+  // });
+
+  after(() => {
+    // mongoose.disconnect();
+  });
+});
+
+describe('Test valid name', () => {
+  before(() => {
+    request = supertest(app);
+  });
+
+  it('should return 200', (done) => {
     request
-      .post('/api/users')
-      .send({
-        name: 'tianyu',
-        password: '123456',
-      })
+      .get('/api/users/names?name=tianyu')
       .expect(200)
       .end((err, res) => {
         console.log(res);
         expect(err).not.exist;
         done(err);
       });
-  });
-
-  after(() => {
-    mongoose.disconnect();
   });
 });

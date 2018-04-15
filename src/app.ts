@@ -54,4 +54,12 @@ app.use(function (err, req, res, next) {
   });
 });
 
+process.on('uncaughtException', (err) => {
+  console.error('UnCaughtException: ', err);
+});
+
+process.on('unhandledRejection', (err) => {
+  console.error('unhandledRejection: ', err);
+});
+
 export default app;
