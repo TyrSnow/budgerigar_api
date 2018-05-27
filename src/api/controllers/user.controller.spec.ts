@@ -3,14 +3,18 @@ import 'mocha';
 import * as supertest from 'supertest';
 import * as mongoose from 'mongoose';
 
-import app from '../../app';
+import { getRequest, releaseRequest } from '../../app.spec';
+import { Server } from 'http';
 
 let request;
 
 describe('Test regist', () => {
   before(() => {
-    (<any>mongoose).Promise = global.Promise;
-    request = supertest(app);
+    request = getRequest();
+    // server = app.listen(3000, () => {
+    //   request = supertest.agent(server);
+    //   done();
+    // });
   });
 
   it('should return 400 when post nothing', (done) => {
@@ -36,23 +40,27 @@ describe('Test regist', () => {
       });
   });
 
-  // it('should return token when regist ready', (done) => {
-  //   request
-  //     .post('/api/users')
-  //     .send({
-  //       name: 'tianyu',
-  //       password: '123456',
-  //     })
-  //     .expect(200)
-  //     .end((err, res) => {
-  //       console.log(res);
-  //       expect(err).not.exist;
-  //       done(err);
-  //     });
-  // });
+  it('should return token when regist ready', (done) => {
+    request
+      .post('/api/users')
+      .send({
+        name: 'tianyu',
+        password: '123456',
+      })
+      .expect(200)
+      .end((err, res) => {
+        expect(err).not.exist;
+        done(err);
+      });
+  });
 
   after(() => {
-    // mongoose.disconnect();
+    releaseRequest();
+    // server.close(() => {
+    //   // mongoose.disconnect(() => {
+    //     done();
+    //   // });
+    // });
   });
 });
 

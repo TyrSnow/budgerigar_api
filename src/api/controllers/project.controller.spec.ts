@@ -3,13 +3,14 @@ import 'mocha';
 import * as supertest from 'supertest';
 import * as mongoose from 'mongoose';
 
-import app from '../../app';
+import { getRequest, releaseRequest } from '../../app.spec';
+import { Server } from 'http';
 
 let request;
 
 describe('Test create', () => {
   before(() => {
-    request = supertest(app);
+    request = getRequest();
   });
 
   it('should return 401 when no auth header', (done) => {
@@ -34,6 +35,6 @@ describe('Test create', () => {
   });
 
   after(() => {
-    mongoose.disconnect();
+    releaseRequest();
   });
 });
