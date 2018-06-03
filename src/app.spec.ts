@@ -9,11 +9,7 @@ import { Server } from 'http';
 let server: Server;
 let request;
 
-let instanceCount = 0;
-let allFinished = false;
-
 before((done) => {
-  allFinished = false;
   server = app.listen(3000, () => {
     request = supertest.agent(server);
     done();
@@ -21,30 +17,17 @@ before((done) => {
 });
 
 after((done) => {
-  allFinished = true;
-  if (instanceCount === 0) {
-    destroy(done);
-  }
+  console.log('All test specs complete');
+  server.close(() => {
+    mongoose.connection.db.dropDatabase(() => {
+      mongoose.disconnect(() => {
+        console.log('Env cleared');
+        done();
+      });
+    });
+  });
 });
 
-function destroy(done?) {
-  setTimeout(() => {
-    server.close(() => {
-      mongoose.disconnect();
-    });
-  }, 10000);
-  if (done) done();
-}
-
 export function getRequest() {
-  instanceCount += 1;
   return request;
-}
-
-export function  releaseRequest() {
-  instanceCount -= 1;
-  if (instanceCount === 0) {
-    console.log('All request released.');
-    destroy();
-  }
 }

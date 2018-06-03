@@ -3,7 +3,7 @@ import 'mocha';
 import * as supertest from 'supertest';
 import * as mongoose from 'mongoose';
 
-import { getRequest, releaseRequest } from '../../app.spec';
+import { getRequest } from '../../app.spec';
 import { Server } from 'http';
 
 let request;
@@ -11,10 +11,6 @@ let request;
 describe('Test regist', () => {
   before(() => {
     request = getRequest();
-    // server = app.listen(3000, () => {
-    //   request = supertest.agent(server);
-    //   done();
-    // });
   });
 
   it('should return 400 when post nothing', (done) => {
@@ -53,30 +49,30 @@ describe('Test regist', () => {
         done(err);
       });
   });
-
-  after(() => {
-    releaseRequest();
-    // server.close(() => {
-    //   // mongoose.disconnect(() => {
-    //     done();
-    //   // });
-    // });
-  });
 });
 
-// describe('Test valid name', () => {
-//   before(() => {
-//     request = supertest(app);
-//   });
+describe('Test valid name', () => {
+  before(() => {
+    request = getRequest();
+  });
 
-//   it('should return 200', (done) => {
-//     request
-//       .get('/api/users/names?name=tianyu')
-//       .expect(200)
-//       .end((err, res) => {
-//         console.log(res);
-//         expect(err).not.exist;
-//         done(err);
-//       });
-//   });
-// });
+  it('should return 400', (done) => {
+    request
+      .get('/api/users/names')
+      .expect(400)
+      .end((err, res) => {
+        expect(err).not.exist;
+        done(err);
+      });
+  });
+
+  it('should return 200', (done) => {
+    request
+      .get('/api/users/names?name=tianyu')
+      .expect(200)
+      .end((err, res) => {
+        expect(err).not.exist;
+        done(err);
+      });
+  });
+});

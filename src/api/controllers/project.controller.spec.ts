@@ -3,7 +3,7 @@ import 'mocha';
 import * as supertest from 'supertest';
 import * as mongoose from 'mongoose';
 
-import { getRequest, releaseRequest } from '../../app.spec';
+import { getRequest } from '../../app.spec';
 import { Server } from 'http';
 
 let request;
@@ -32,9 +32,5 @@ describe('Test create', () => {
         expect(err).not.exist;
         done(err);
       });
-  });
-
-  after(() => {
-    releaseRequest();
   });
 });

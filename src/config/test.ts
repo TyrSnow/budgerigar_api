@@ -2,7 +2,7 @@ const config = {
   PORT: 8083,
   secretKey: 'unit.test.2018',
   db: {
-    uri: `mongodb://127.0.0.1:27017/test`,
+    uri: `mongodb://127.0.0.1:27017/test_budgerigar`,
     user: '',
     password: ''
   },
@@ -20,11 +20,11 @@ const config = {
     categories: {
       default: {
         appenders: ['out'],
-        level: 'debug'
+        level: 'ERROR'
       },
       error: {
         appenders: ['out'],
-        level: 'debug'
+        level: 'ERROR'
       }
     }
   }
