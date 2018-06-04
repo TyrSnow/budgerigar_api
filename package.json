@@ -1,13 +1,13 @@
 {
   "name": "budgerigar_api",
-  "version": "0.1.0",
+  "version": "0.1.0 beta",
   "scripts": {
     "init": "cnpm install",
     "compileJs": "tsc --watch",
-    "startJs": "nodemon build/server.js",
+    "startJs": "nodemon dist/server.js",
     "start": "npm-run-all -p compileJs startJs",
     "build": "tsc",
-    "test": "set NODE_ENV=test&& nyc mocha -r ./node_modules/ts-node/register -r ./node_modules/source-map-support/register src/**/*.spec.ts",
+    "test": "set NODE_ENV=test&& nyc mocha -r ./node_modules/ts-node/register -r ./node_modules/source-map-support/register api/**/*.spec.ts",
     "test-ci": "nyc npm test && nyc report --reporter=text-lcov > coverage.lcov && codecov"
   },
   "nyc": {
@@ -21,6 +21,8 @@
       "**/*.schema.ts",
       "**/*.model.ts",
       "**/*.enum.ts",
+      "api/model/*.ts",
+      "api/constants/*.ts",
       "**/server.ts",
       "**/*.js"
     ],
@@ -39,7 +41,8 @@
     "log4js": "^2.3.11",
     "mongoose": "^5.0.15",
     "pinyin": "^2.8.3",
-    "redis": "^2.8.0"
+    "redis": "^2.8.0",
+    "reflect-metadata": "^0.1.12"
   },
   "devDependencies": {
     "@types/body-parser": "^1.16.7",

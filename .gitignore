@@ -7,3 +7,5 @@ uploads
 coverage
 .nyc_output
 coverage.lcov
+
+.bak

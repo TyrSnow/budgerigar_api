@@ -4,13 +4,15 @@
     "target": "es6",
     "noImplicitAny": false,
     "sourceMap": true,
-    "rootDir":"./src",
-    "outDir":"./build",
+    "rootDir":"./",
+    "outDir":"./dist",
     "watch": false,
-    "experimentalDecorators": true
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "baseUrl": "./"
   },
   "include":[
-    "./src/**/*"
+    "./api/**/*.ts"
   ],
   "exclude":[
     "views",
