@@ -1,6 +1,6 @@
 {
   "name": "budgerigar_api",
-  "version": "0.1.0 beta",
+  "version": "0.1.0",
   "scripts": {
     "init": "cnpm install",
     "compileJs": "tsc --watch",
