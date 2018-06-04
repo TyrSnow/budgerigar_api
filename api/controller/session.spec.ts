@@ -73,7 +73,7 @@ describe('Test solveAuth', () => {
   it('should return 401 when no authorization show', (done) => {
     request
       .get('/api/session')
-      .expect(200)
+      .expect(401)
       .end((err, res) => {
         expect(err).not.exist;
         done(err);

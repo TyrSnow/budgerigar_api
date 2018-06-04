@@ -1,7 +1,8 @@
-function C(code: number, message: string, status?: number, uri?: string) {
+function C(code: number, message: string, status: number = 200, uri?: string) {
   return {
     code,
     message,
+    status,
     uri
   }
 }

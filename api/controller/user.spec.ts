@@ -3,9 +3,12 @@ import 'mocha';
 import * as supertest from 'supertest';
 import * as mongoose from 'mongoose';
 
-import { getRequest } from '../app.spec';
+import { getRequest, getToken } from '../app.spec';
 import { Server } from 'http';
+import CODE from '../constants/code';
 
+const name = 'unitTestRegist';
+const password = '123456';
 describe('Test regist', () => {
   let request;
   before(() => {
@@ -39,12 +42,27 @@ describe('Test regist', () => {
     request
       .post('/api/users')
       .send({
-        name: 'tianyu',
-        password: '123456',
+        name,
+        password,
       })
       .expect(200)
       .end((err, res) => {
         expect(err).not.exist;
+        done(err);
+      });
+  });
+
+  it('should return code when regist name already exist', (done) => {
+    request
+      .post('/api/users')
+      .send({
+        name,
+        password,
+      })
+      .expect(200)
+      .end((err, res) => {
+        expect(err).not.exist;
+        expect(res.body.code).to.equal(CODE.DUMPLICATE_NAME.code);
         done(err);
       });
   });
@@ -79,11 +97,22 @@ describe('Test valid name', () => {
 
 describe('Test list user', () => {
   let request;
+  let token;
   before(() => {
     request = getRequest();
+    token = getToken();
   });
 
-  it('should return auth low', () => {
-    
+  it('should return auth low', (done) => {
+    request
+      .get('/api/users')
+      .set({
+        authorization: token,
+      })
+      .expect(401)
+      .end((err, res) => {
+        expect(res.body.code).to.equal(CODE.LOW_AUTHORIZE.code);
+        done();
+      })
   });
 });

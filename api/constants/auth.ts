@@ -6,5 +6,5 @@ enum AUTH_TYPE {
 
 export default AUTH_TYPE;
 export const hasAuth = (request: AUTH_TYPE, type: AUTH_TYPE) => {
-  return request >= type;
+  return request <= type;
 };

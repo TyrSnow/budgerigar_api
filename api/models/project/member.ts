@@ -5,9 +5,9 @@ import { ProjectModel } from './index.d';
 const Schema = mongoose.Schema;
 
 const Member = new Schema({
-  user_id: {
+  user: {
     type: Schema.Types.ObjectId,
-    rel: 'User',
+    ref: 'User',
   },
   auth: {
     type: Number,

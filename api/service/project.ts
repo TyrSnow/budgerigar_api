@@ -11,7 +11,7 @@ let log = log4js.getLogger('default');
 @service()
 class ProjectService {
   create(
-    userId: string,
+    user_id: string,
     name: string,
     desc: string = '',
     open?: boolean,
@@ -20,8 +20,9 @@ class ProjectService {
       name,
       desc,
       open,
+      creator: user_id,
       members: [{
-        user_id: userId,
+        user: user_id,
         auth: PROJECT_AUTH.OWNER,
       }],
     });
@@ -29,11 +30,55 @@ class ProjectService {
     return project.save().catch((err) => {
       if (err.code === 11000) {
         if (err.errmsg.indexOf('name') !== -1) {
-          return Promise.reject(CODE.DUMPLICATE_NAME);
+          return Promise.reject(CODE.PROEJCT_NAME_ALREADY_EXIST);
         }
       }
       return Promise.reject(err);
     })
+  }
+
+  find_projects_by_owner(
+    creator: string,
+    size: number = 10,
+    current: number = 1,
+  ): Promise<ResponseList<ProjectModel.Project>> {
+    const query = {
+      creator,
+    };
+    let skip = (current - 1) * size;
+    return Project.count({
+      creator,
+    }).then(
+      (total) => {
+        if (total < skip) {
+          return Promise.resolve({
+            list: [],
+            page: {
+              size,
+              current,
+              total,
+            },
+          });
+        }
+        return Project
+          .find(query, {
+            __v: 0,
+          })
+          .skip(skip)
+          .limit(size)
+          .populate('members.user creator', '_id name head')
+          .then((list) => {
+            return Promise.resolve({
+              list,
+              page: {
+                size,
+                current,
+                total,
+              },
+            });
+          });
+      },
+    );
   }
 }
 

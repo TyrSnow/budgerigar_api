@@ -10,6 +10,7 @@ const singlonFlag: Map<string, boolean> = new Map();
 const instancePool: Map<string, any> = new Map();
 const injectTree: Map<string, string[]> = new Map();
 const optionPool: Map<string, any> = new Map();
+const generatePool: Map<string, any> = new Map();
 
 /**
  * 检查新加入的依赖项是否引起了循环依赖
@@ -39,6 +40,7 @@ function checkBackendDependency(
 export function createInjector(
   injectName: string,
   isSinglon: boolean = true,
+  generate?: any,
 ) {
   return (option?: any) => {
     return <T extends {new(...args: any[]): {}}>(injectConstructor: T) => {
@@ -72,6 +74,9 @@ export function createInjector(
       optionPool.set(name, option);
       singlonFlag.set(name, isSinglon);
       injectPool.set(name, injectConstructor);
+      if (generate) {
+        generatePool.set(name, generate);
+      }
     };
   };
 }
@@ -102,12 +107,16 @@ export function create<T>(injectConstructor: { new (...args: any[]): T }): T {
     });
   }
 
-  const instance = new injectConstructor(...paramInstances);
+  let instance = new injectConstructor(...paramInstances);
   const option = optionPool.get(name);
   if (option) {
     Object.assign(instance, option);
   }
-  if (singlonFlag[name]) { // 非单例不缓存
+  let generate = generatePool.get(name);
+  if (generate) {
+    instance = generate(instance);
+  }
+  if (singlonFlag.get(name)) { // 非单例不缓存
     instancePool.set(name, instance);
   }
 

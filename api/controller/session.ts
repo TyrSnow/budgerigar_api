@@ -7,6 +7,7 @@ import CODE from "../constants/code";
 import { SUCCESS, ERROR } from "../core/response";
 import AUTH_TYPE from "../constants/auth";
 import { auth } from "../intercepror/auth";
+import ProjectService from "../service/project";
 
 
 @controller({
@@ -16,6 +17,7 @@ class SessionController {
   constructor(
     private userService: UserService,
     private tokenService: TokenService,
+    private projectService: ProjectService,
   ) {}
 
   @route('/', 'post')
@@ -49,6 +51,19 @@ class SessionController {
     );
   }
 
+  @route('/projects', 'get')
+  @auth(AUTH_TYPE.USER)
+  list_user_projects(req, res) {
+    const { _id } = req.user;
+    const { current, size } = req.query;
+
+    this.projectService.find_projects_by_owner(_id, size, current).then(
+      SUCCESS(req, res),
+    ).catch(
+      ERROR(req, res),
+    );
+  }
+
   @route('/', 'get')
   @auth(AUTH_TYPE.USER)
   solve_auth(req, res) {
@@ -71,6 +86,7 @@ class SessionController {
       ERROR(req, res),
     );
   }
+
 }
 
 export default SessionController;

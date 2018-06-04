@@ -14,9 +14,20 @@ const model = new Schema({
     type: Boolean,
     default: true,
   },
+  creator: {
+    type: Schema.Types.ObjectId,
+    ref: 'User',
+  },
   members: [Member],
 }, {
   timestamps: true,
+});
+
+model.index({ // 用户名下的项目名不能重复
+  creator: 1,
+  name: 1,
+}, {
+  unique: true,
 });
 
 model.methods.add_member = (user_id: string, auth: PROJECT_AUTH = PROJECT_AUTH.NORMAL) => {
