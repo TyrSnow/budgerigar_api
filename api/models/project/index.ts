@@ -2,6 +2,8 @@ import * as mongoose from 'mongoose';
 import { ProjectModel } from './index.d';
 import Member from './member';
 import PROJECT_AUTH from '../../constants/project.auth';
+import * as methods from './project.methods';
+
 const Schema = mongoose.Schema;
 
 const model = new Schema({
@@ -30,22 +32,7 @@ model.index({ // 用户名下的项目名不能重复
   unique: true,
 });
 
-model.methods.add_member = (user_id: string, auth: PROJECT_AUTH = PROJECT_AUTH.NORMAL) => {
-  let count = this.members.filter((member) => member.user_id === user_id).length;
-  if (count === 0) {
-    this.members.push({
-      user_id,
-      auth,
-    });
-  
-    this.save();
-  }
-}
-
-model.methods.remove_member = (user_id: string) => {
-  this.members = this.members.filter(member => member.user_id !== user_id);
-  this.save();
-}
+Object.assign(model.methods, methods);
 
 const Project = mongoose.model<ProjectModel.Project>('Project', model);
 export default Project;

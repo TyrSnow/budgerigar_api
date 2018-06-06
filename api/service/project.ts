@@ -5,6 +5,7 @@ import Project from '../models/project';
 import Member from '../models/project/member';
 import CODE from '../constants/code';
 import PROJECT_AUTH from "../constants/project.auth";
+import { Schema } from "mongoose";
 
 let log = log4js.getLogger('default');
 
@@ -22,7 +23,7 @@ class ProjectService {
       open,
       creator: user_id,
       members: [{
-        user: user_id,
+        _id: user_id,
         auth: PROJECT_AUTH.OWNER,
       }],
     });
@@ -79,6 +80,28 @@ class ProjectService {
           });
       },
     );
+  }
+
+  valid_user_auth(
+    project_id: string,
+    user_id: string,
+    auth: PROJECT_AUTH,
+  ) {
+    return Project.findById(project_id).then((res) => {
+      if (res) {
+        if (res.valid_auth(auth, user_id)) {
+          return Promise.resolve(res);
+        }
+        return Promise.reject(CODE.LOW_AUTH_TO_ACCESS_PROJECT);
+      }
+      return Promise.reject(CODE.PROJECT_NOT_EXIST);
+    })
+  }
+
+  get_selective_detail(
+    project: ProjectModel.Project,
+  ) {
+    return project.populate('members._id creator', '_id name head').execPopulate();
   }
 }
 

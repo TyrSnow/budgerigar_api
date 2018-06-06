@@ -5,7 +5,7 @@ import { ProjectModel } from './index.d';
 const Schema = mongoose.Schema;
 
 const Member = new Schema({
-  user: {
+  _id: {
     type: Schema.Types.ObjectId,
     ref: 'User',
   },
@@ -21,4 +21,4 @@ Member.methods.set_auth = (auth: PROJECT_AUTH) => {
   this.save();
 }
 
-export default <ProjectModel.Member>Member;
+export default Member;
