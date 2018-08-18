@@ -10,6 +10,7 @@ function C(code: number, message: string, status: number = 200, uri?: string) {
 const CODE = {
   // 通用
   SUCCESS: C(10200, '操作完成'),
+  ILLEGAL_ID: C(10400, '非法的参数'),
   ERROR: C(10500, '服务器异常'),
   OPERATIONS_PART_COMPLETE: C(10501, '部分操作未能完成'), // 非批量导入功能不要用这个错误
   ACCESS_DENY: C(10400, '用户操作被拒绝', 400),

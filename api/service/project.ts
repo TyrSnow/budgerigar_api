@@ -1,4 +1,4 @@
-import { service } from "../core/injector";
+import { service } from "../core";
 import * as log4js from 'log4js';
 import { ProjectModel } from '../models/project/index.d';
 import Project from '../models/project';

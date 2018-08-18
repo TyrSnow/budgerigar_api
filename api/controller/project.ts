@@ -1,10 +1,11 @@
-import { controller, route } from "../core/injector";
+import { controller, route, use } from "../core";
 import ProjectService from "../service/project";
-import { auth, AUTH_TYPE } from "../intercepror/auth";
-import { SUCCESS, ERROR } from "../core/response";
-import validator from "../intercepror/validator";
+import { auth } from "../middleware/auth";
+import { SUCCESS, ERROR } from "../helper/response";
+import { validate } from "../middleware/validator";
 import projectSchemas from "../schemas/project.schemas";
 import PROJECT_AUTH from "../constants/project.auth";
+import { AUTH_TYPE } from "../constants/auth";
 
 @controller({
   path: '/projects',
@@ -15,8 +16,8 @@ class ProjectController {
   ) {}
 
   @route('/', 'post')
-  @auth(AUTH_TYPE.USER)
-  @validator(projectSchemas.create)
+  @use(auth(AUTH_TYPE.USER))
+  @use(validate(projectSchemas.create))
   create(req, res) {
     const { name, desc, open } = req.body;
     const { _id } = req.user;
@@ -29,7 +30,7 @@ class ProjectController {
   }
 
   @route('/:project_id', 'get')
-  @auth(AUTH_TYPE.USER)
+  @use(auth(AUTH_TYPE.USER))
   get_one_detail(req, res) {
     const { project_id } = req.params;
     const { _id } = req.user;

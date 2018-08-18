@@ -1,6 +1,6 @@
 import * as mongoose from 'mongoose';
 import { UserModel } from './User';
-import AUTH_TYPE from '../constants/auth';
+import { AUTH_TYPE } from '../constants/auth';
 
 const Schema = mongoose.Schema;
 

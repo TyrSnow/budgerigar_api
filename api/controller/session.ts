@@ -1,12 +1,12 @@
-import { controller, route } from "../core/injector";
+import { controller, route, use } from "../core";
 import UserService from "../service/user";
 import TokenService from "../service/token";
-import validator from "../intercepror/validator";
+import { validate } from "../middleware/validator";
 import UserSchemas from "../schemas/user.schemas";
 import CODE from "../constants/code";
-import { SUCCESS, ERROR } from "../core/response";
-import AUTH_TYPE from "../constants/auth";
-import { auth } from "../intercepror/auth";
+import { SUCCESS, ERROR } from "../helper/response";
+import { AUTH_TYPE } from "../constants/auth";
+import { auth } from "../middleware/auth";
 import ProjectService from "../service/project";
 
 
@@ -21,7 +21,7 @@ class SessionController {
   ) {}
 
   @route('/', 'post')
-  @validator(UserSchemas.login)
+  @use(validate(UserSchemas.login))
   login(req, res) {
     let {
       user, password, remember,
@@ -52,7 +52,7 @@ class SessionController {
   }
 
   @route('/projects', 'get')
-  @auth(AUTH_TYPE.USER)
+  @use(auth(AUTH_TYPE.USER))
   list_user_projects(req, res) {
     const { _id } = req.user;
     const { current, size } = req.query;
@@ -65,7 +65,7 @@ class SessionController {
   }
 
   @route('/', 'get')
-  @auth(AUTH_TYPE.USER)
+  @use(auth(AUTH_TYPE.USER))
   solve_auth(req, res) {
     let { user } = req;
     let { iat, exp, ...other } = user;

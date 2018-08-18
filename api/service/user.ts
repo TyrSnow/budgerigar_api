@@ -1,12 +1,12 @@
 import * as log4js from 'log4js';
-import { service } from "../core/injector";
+import { service } from "../core";
 import { UserModel } from "../models/User.d";
 import User from "../models/User.model";
 import { generate_sault, hash_password, valid_password } from "../tools/password";
 import CODE from "../constants/code";
 import { Regs } from '../constants/reg';
 import mask_object from '../tools/maskObject';
-import AUTH_TYPE from '../constants/auth';
+import { AUTH_TYPE } from '../constants/auth';
 
 let log = log4js.getLogger('default');
 
@@ -125,7 +125,6 @@ class UserService {
   find_user(
     user: string
   ): Promise<UserModel.IUser> {
-    log.debug('[UserService.find_user]Input arguments: ', arguments);
     // 判断user的格式
     let query: any = {
       name: user
